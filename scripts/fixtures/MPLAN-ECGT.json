@@ -1,0 +1,126 @@
+{
+  "id": "MPLAN-ECGT",
+  "urn": "urn:regulus:milestoneplan:MPLAN-ECGT",
+  "project_ref": "PROJ-ECGT",
+  "workstreams": [
+    {
+      "id": "WS-ECGT-001",
+      "urn": "urn:regulus:workstreamitem:WS-ECGT-001",
+      "workstream": "Policy",
+      "workstream_group": "10: Regulatory Policy",
+      "milestone": "Policy Position Paper & EU Guidance Alignment",
+      "deliverables": "Legal interpretation memo & seller guidance charter",
+      "mandatory_milestone": true,
+      "primary_poc": {
+        "id": "USR-001",
+        "name": "Elena Rostova"
+      },
+      "start_date": "2026-01-15",
+      "end_date": "2026-02-15",
+      "status": "Complete",
+      "pdlc_phase": "Scoping"
+    },
+    {
+      "id": "WS-ECGT-002",
+      "urn": "urn:regulus:workstreamitem:WS-ECGT-002",
+      "workstream": "Legal",
+      "workstream_group": "20: Legal Compliance",
+      "milestone": "LRD Sign-off & Article Mapping",
+      "deliverables": "Approved LRD-2024-001",
+      "mandatory_milestone": true,
+      "primary_poc": {
+        "id": "USR-001",
+        "name": "Elena Rostova"
+      },
+      "start_date": "2026-01-20",
+      "end_date": "2026-02-20",
+      "status": "Complete",
+      "pdlc_phase": "Scoping"
+    },
+    {
+      "id": "WS-ECGT-003",
+      "urn": "urn:regulus:workstreamitem:WS-ECGT-003",
+      "workstream": "Product",
+      "workstream_group": "30: Product Strategy",
+      "milestone": "BRD & E2E PRD Approval",
+      "deliverables": "BRD-ECGT-001 & PRD-ECGT",
+      "mandatory_milestone": true,
+      "primary_poc": {
+        "id": "USR-002",
+        "name": "Marcus Vance"
+      },
+      "start_date": "2026-02-15",
+      "end_date": "2026-04-15",
+      "status": "Complete",
+      "pdlc_phase": "Design"
+    },
+    {
+      "id": "WS-ECGT-004",
+      "urn": "urn:regulus:workstreamitem:WS-ECGT-004",
+      "workstream": "Engineering",
+      "workstream_group": "40: System Development",
+      "milestone": "Eco-Validation API & View Item Badging Build",
+      "deliverables": "Listing validation service, View Item widgets",
+      "mandatory_milestone": true,
+      "primary_poc": {
+        "id": "USR-004",
+        "name": "Lukas Meyer"
+      },
+      "start_date": "2026-04-15",
+      "end_date": "2026-07-15",
+      "status": "In Progress",
+      "pdlc_phase": "Build"
+    },
+    {
+      "id": "WS-ECGT-005",
+      "urn": "urn:regulus:workstreamitem:WS-ECGT-005",
+      "workstream": "Design",
+      "workstream_group": "50: UX & Interface",
+      "milestone": "Harmonised Durability & Repairability Component Specs",
+      "deliverables": "Figma design system tokens & UI components",
+      "mandatory_milestone": true,
+      "primary_poc": {
+        "id": "USR-005",
+        "name": "Aria Chen"
+      },
+      "start_date": "2026-03-01",
+      "end_date": "2026-04-30",
+      "status": "Complete",
+      "pdlc_phase": "Design"
+    },
+    {
+      "id": "WS-ECGT-006",
+      "urn": "urn:regulus:workstreamitem:WS-ECGT-006",
+      "workstream": "QA",
+      "workstream_group": "70: E2E Testing",
+      "milestone": "EU Market E2E Verification & Edge Case Testing",
+      "deliverables": "Test execution report for DE/FR/IT/ES flows",
+      "mandatory_milestone": true,
+      "primary_poc": {
+        "id": "USR-006",
+        "name": "David Kim"
+      },
+      "start_date": "2026-07-01",
+      "end_date": "2026-08-15",
+      "status": "In Progress",
+      "pdlc_phase": "Test"
+    },
+    {
+      "id": "WS-ECGT-007",
+      "urn": "urn:regulus:workstreamitem:WS-ECGT-007",
+      "workstream": "Rollout",
+      "workstream_group": "80: Production Rollout",
+      "milestone": "Enforcement Go-Live",
+      "deliverables": "100% EU traffic deployment ahead of Sept 27 deadline",
+      "mandatory_milestone": true,
+      "primary_poc": {
+        "id": "USR-002",
+        "name": "Marcus Vance"
+      },
+      "start_date": "2026-08-15",
+      "end_date": "2026-09-20",
+      "status": "Not Started",
+      "pdlc_phase": "Ramp"
+    }
+  ]
+}

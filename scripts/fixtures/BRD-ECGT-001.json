@@ -1,0 +1,122 @@
+{
+  "id": "BRD-ECGT-001",
+  "urn": "urn:regulus:brd:BRD-ECGT-001",
+  "title": "Empowering Consumers in Green Transition - Business Requirements",
+  "lrd_refs": ["LRD-2024-001"],
+  "regulation": "EU Directive 2024/1799 (ECGT)",
+  "brd_owner": {
+    "id": "USR-002",
+    "name": "Marcus Vance",
+    "email": "marcus.vance@ebay.com",
+    "role": "Lead PM"
+  },
+  "legal_stakeholders": [
+    {
+      "id": "USR-001",
+      "name": "Elena Rostova",
+      "email": "elena.rostova@ebay.com",
+      "role": "Legal Counsel"
+    }
+  ],
+  "bu_lead": {
+    "id": "USR-003",
+    "name": "Sophia Weber",
+    "email": "sophia.weber@ebay.com",
+    "role": "BU Lead EU"
+  },
+  "status": "Approved",
+  "version": "1.1.0",
+  "created": "2026-02-15T10:00:00Z",
+  "last_updated": "2026-03-01T16:00:00Z",
+  "sections": {
+    "purpose_scope": "Define business capabilities, seller attribute inputs, buyer eco-trust disclosures, and automated green claim verification across EU surfaces to achieve full compliance with Directive 2024/1799.",
+    "customer_requirements": [
+      {
+        "id": "BR-001",
+        "urn": "urn:regulus:brdrequirement:BR-001",
+        "obligation_refs": ["OBL-LRD-2024-001-001"],
+        "text": "Buyers must view verified eco-badges and official certification issuer links on View Item pages.",
+        "priority": "Must",
+        "rationale": "Direct fulfillment of Article 3(1)(a) mandate for verifiable environmental claims."
+      },
+      {
+        "id": "BR-002",
+        "urn": "urn:regulus:brdrequirement:BR-002",
+        "obligation_refs": ["OBL-LRD-2024-001-002"],
+        "text": "Block sellers from submitting generic climate-neutral claims without accredited EU verification.",
+        "priority": "Must",
+        "rationale": "Fulfillment of Article 3(1)(b) prohibition on offset-based climate claims."
+      },
+      {
+        "id": "BR-003",
+        "urn": "urn:regulus:brdrequirement:BR-003",
+        "obligation_refs": ["OBL-LRD-2024-001-003"],
+        "text": "Display standardized EU commercial durability guarantee notices on listing pages and checkout.",
+        "priority": "Must",
+        "rationale": "Fulfillment of Article 4(2) harmonised disclosure mandate."
+      },
+      {
+        "id": "BR-004",
+        "urn": "urn:regulus:brdrequirement:BR-004",
+        "obligation_refs": ["OBL-LRD-2024-001-004"],
+        "text": "Provide seller attribute input for Repairability Index Score (1.0 to 10.0 scale) and spare parts availability.",
+        "priority": "Must",
+        "rationale": "Fulfillment of Article 4(3) repairability disclosure mandate."
+      },
+      {
+        "id": "BR-005",
+        "urn": "urn:regulus:brdrequirement:BR-005",
+        "obligation_refs": ["OBL-LRD-2024-001-005"],
+        "text": "Require seller input for software update support duration (in months/years) for smart devices.",
+        "priority": "Should",
+        "rationale": "Fulfillment of Article 6(1) digital product update disclosure."
+      }
+    ],
+    "business_requirements": [
+      {
+        "id": "BR-006",
+        "urn": "urn:regulus:brdrequirement:BR-006",
+        "obligation_refs": ["OBL-LRD-2024-001-001", "OBL-LRD-2024-001-002"],
+        "text": "Automate real-time green claim keyword scanning in seller listing titles and descriptions during listing flow.",
+        "priority": "Must",
+        "rationale": "Prevent non-compliant seller listings from publishing on EU sites."
+      }
+    ],
+    "out_of_scope": "Non-EU seller listings shipping exclusively to non-EU buyers outside EU jurisdiction.",
+    "risk_decisions": [
+      {
+        "id": "RD-001",
+        "context": "Automated listing suppression vs warning state for existing listings with unverified green keywords.",
+        "legal_basis": "Article 3(1)(a)",
+        "decision": "Apply warning banner to sellers during 6-month grace period before executing hard listing blocks.",
+        "risk_accepted": true,
+        "sign_offs": [
+          {
+            "approver": "Elena Rostova",
+            "role": "Legal Counsel",
+            "date": "2026-02-25"
+          }
+        ]
+      }
+    ],
+    "dependencies": ["Item Specifics Service", "Trust & Safety Keyword Engine", "EU Catalog DB"]
+  },
+  "approvals": [
+    {
+      "approver": {
+        "id": "USR-001",
+        "name": "Elena Rostova"
+      },
+      "role": "Legal Counsel",
+      "date": "2026-03-01T16:00:00Z"
+    },
+    {
+      "approver": {
+        "id": "USR-003",
+        "name": "Sophia Weber"
+      },
+      "role": "BU Lead EU",
+      "date": "2026-03-01T16:00:00Z"
+    }
+  ]
+}

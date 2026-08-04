@@ -1,0 +1,28 @@
+{
+  "id": "FACT-ECGT",
+  "urn": "urn:regulus:factsheet:FACT-ECGT",
+  "title": "ECGT Regulatory Factsheet & Seller Guidance",
+  "lrd_ref": "LRD-2024-001",
+  "brd_ref": "BRD-ECGT-001",
+  "project_ref": "PROJ-ECGT",
+  "owner": {
+    "id": "USR-002",
+    "name": "Marcus Vance",
+    "email": "marcus.vance@ebay.com"
+  },
+  "created": "2026-03-10T14:00:00Z",
+  "status": "Approved",
+  "executive_summary": "Empowering Consumers for Green Transition (ECGT) mandates verifiable eco-claims, prohibits unsubstantiated greenwashing, and introduces durability/repairability disclosures across all EU marketplaces.",
+  "key_dates": {
+    "enforcement_date": "2026-09-27",
+    "seller_grace_period_ends": "2027-03-27"
+  },
+  "core_prohibitions": [
+    "Generic claims like 'green', 'eco-friendly', 'environmentally safe' without verified eco-label.",
+    "Climate neutral claims based on carbon offset schemes."
+  ],
+  "mandatory_disclosures": [
+    "Harmonised Commercial Guarantee of Durability label.",
+    "Repairability score (1.0 to 10.0) for smartphones, tablets, laptops, appliances."
+  ]
+}

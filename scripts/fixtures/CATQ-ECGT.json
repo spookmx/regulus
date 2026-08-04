@@ -1,0 +1,44 @@
+{
+  "id": "CATQ-ECGT",
+  "urn": "urn:regulus:catq:CATQ-ECGT",
+  "title": "ECGT Category Eligibility & Scope Matrix",
+  "lrd_ref": "LRD-2024-001",
+  "project_ref": "PROJ-ECGT",
+  "owner": {
+    "id": "USR-002",
+    "name": "Marcus Vance",
+    "email": "marcus.vance@ebay.com"
+  },
+  "created": "2026-02-18T11:00:00Z",
+  "status": "Approved",
+  "categories": [
+    {
+      "category_id": "CAT-101",
+      "category_name": "Consumer Electronics",
+      "in_scope": true,
+      "applicable_articles": ["Article 3(1)(a)", "Article 3(1)(b)", "Article 4(3)", "Article 6(1)"],
+      "notes": "High priority for repairability score and software update disclosure."
+    },
+    {
+      "category_id": "CAT-102",
+      "category_name": "Home Appliances",
+      "in_scope": true,
+      "applicable_articles": ["Article 3(1)(a)", "Article 3(1)(b)", "Article 4(2)", "Article 4(3)"],
+      "notes": "Durability notice mandatory."
+    },
+    {
+      "category_id": "CAT-103",
+      "category_name": "Fashion & Apparel",
+      "in_scope": true,
+      "applicable_articles": ["Article 3(1)(a)", "Article 3(1)(b)"],
+      "notes": "Eco-label claims validation required."
+    },
+    {
+      "category_id": "CAT-104",
+      "category_name": "Collectibles & Vintage",
+      "in_scope": false,
+      "applicable_articles": [],
+      "notes": "Exempt C2C second-hand non-commercial listings."
+    }
+  ]
+}

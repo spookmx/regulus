@@ -1,0 +1,32 @@
+{
+  "id": "DECK-ECGT",
+  "urn": "urn:regulus:productoverview:DECK-ECGT",
+  "title": "ECGT Compliance Product Strategy & Executive Deck",
+  "project_ref": "PROJ-ECGT",
+  "owner": {
+    "id": "USR-002",
+    "name": "Marcus Vance",
+    "email": "marcus.vance@ebay.com"
+  },
+  "created": "2026-03-20T16:00:00Z",
+  "status": "Approved",
+  "slide_count": 14,
+  "key_slides": [
+    {
+      "slide_no": 1,
+      "title": "Empowering Consumers in the Green Transition (ECGT) Overview"
+    },
+    {
+      "slide_no": 4,
+      "title": "Regulatory Architecture: Law to Code Traceability"
+    },
+    {
+      "slide_no": 8,
+      "title": "Product Implementation Roadmap (H1/H2 2026)"
+    },
+    {
+      "slide_no": 12,
+      "title": "Risk Mitigation & Seller Readiness"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "IA-ECGT",
+  "urn": "urn:regulus:impactassessment:IA-ECGT",
+  "title": "ECGT Impact Assessment & Business Risk Analysis",
+  "lrd_ref": "LRD-2024-001",
+  "project_ref": "PROJ-ECGT",
+  "owner": {
+    "id": "USR-003",
+    "name": "Sophia Weber",
+    "email": "sophia.weber@ebay.com"
+  },
+  "created": "2026-01-28T09:30:00Z",
+  "status": "Approved",
+  "impact_summary": "High operational impact on EU seller onboarding and listing flow; moderate technical impact on View Item and Item Specifics platform.",
+  "metrics": {
+    "affected_active_listings_eu": 14200000,
+    "affected_sellers_count": 320000,
+    "estimated_dev_effort_person_months": 18,
+    "non_compliance_fine_risk_eur": "Up to 4% of annual EU turnover under UCPD"
+  },
+  "strategic_recommendation": "Automate verification via API partnerships to minimize seller friction and prevent listing suppression."
+}

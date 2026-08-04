@@ -1,0 +1,62 @@
+{
+  "id": "PROJ-ECGT",
+  "urn": "urn:regulus:project:PROJ-ECGT",
+  "name": "EU ECGT Compliance (Empowering Consumers in Green Transition)",
+  "code": "ECGT",
+  "regulation": ["EU Directive 2024/1799 (ECGT)"],
+  "product_capability": ["Listing Flow", "View Item", "Item Specifics", "Trust & Safety"],
+  "program": "Must Win Regulatory 2026",
+  "stack_rank": 1,
+  "pm_lead": {
+    "id": "USR-002",
+    "name": "Marcus Vance",
+    "email": "marcus.vance@ebay.com",
+    "role": "Lead PM"
+  },
+  "pgm_lead": {
+    "id": "USR-007",
+    "name": "Sarah Jenkins",
+    "email": "sarah.jenkins@ebay.com",
+    "role": "PgM Lead"
+  },
+  "bu_lead": {
+    "id": "USR-003",
+    "name": "Sophia Weber",
+    "email": "sophia.weber@ebay.com",
+    "role": "BU Lead EU"
+  },
+  "project_phase": "Build",
+  "project_status": "On Track",
+  "regulation_compliance_date": "2026-09-27",
+  "lts_date": "2026-08-15",
+  "ramp_start": "2026-08-20",
+  "ramp_end": "2026-09-20",
+  "ramp_pct": 100,
+  "document_refs": {
+    "lrd": ["LRD-2024-001"],
+    "brd": ["BRD-ECGT-001"],
+    "prd": "PRD-ECGT",
+    "playbook": "PLAY-ECGT",
+    "milestone_plan": "MPLAN-ECGT",
+    "catq": "CATQ-ECGT",
+    "fact": "FACT-ECGT",
+    "ia": "IA-ECGT",
+    "deck": "DECK-ECGT"
+  },
+  "artifact_statuses": {
+    "brd_status": "Approved",
+    "brd_date": "2026-03-01",
+    "prd_status": "Approved",
+    "prd_date": "2026-04-12",
+    "design_status": "Complete"
+  },
+  "airtable_sync": {
+    "base_id": "appsAttrVGoHjSfHR",
+    "record_id": "recECGTPilot2026",
+    "last_synced": "2026-08-03T18:00:00Z",
+    "sync_status": "Synced"
+  },
+  "dependency_domains": ["Listing", "Search", "View Item", "Seller Hub", "Checkout"],
+  "jira_tickets": ["ECGT-101", "ECGT-102", "ECGT-103", "ECGT-104", "ECGT-105", "ECGT-201"],
+  "figma_links": ["https://figma.com/file/ecgt-green-transition-ui-tokens"]
+}

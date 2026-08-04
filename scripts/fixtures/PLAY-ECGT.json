@@ -1,0 +1,135 @@
+{
+  "id": "PLAY-ECGT",
+  "urn": "urn:regulus:playbook:PLAY-ECGT",
+  "project_ref": "PROJ-ECGT",
+  "lrd_refs": ["LRD-2024-001"],
+  "owner": {
+    "id": "USR-002",
+    "name": "Marcus Vance",
+    "email": "marcus.vance@ebay.com",
+    "role": "Lead PM"
+  },
+  "version": "1.2.0",
+  "last_updated": "2026-04-20T15:00:00Z",
+  "risk_register": [
+    {
+      "id": "RSK-ECGT-001",
+      "urn": "urn:regulus:risk:RSK-ECGT-001",
+      "date_identified": "2026-02-01",
+      "description": "Seller backlash due to strict green claim keyword validation blocking eco-friendly seller claims",
+      "owner": {
+        "id": "USR-002",
+        "name": "Marcus Vance"
+      },
+      "likelihood": 4,
+      "impact": 4,
+      "risk_score": 16,
+      "status": "Mitigated",
+      "resolution_date": "2026-03-15",
+      "closure_notes": "Implemented clear seller guidance UI & rapid appeal path.",
+      "mitigation_plan": "Provide instant eco-label verification options in seller listing hub."
+    },
+    {
+      "id": "RSK-ECGT-002",
+      "urn": "urn:regulus:risk:RSK-ECGT-002",
+      "date_identified": "2026-02-10",
+      "description": "Delayed EU Commission final technical specifications for durability notice icons",
+      "owner": {
+        "id": "USR-001",
+        "name": "Elena Rostova"
+      },
+      "likelihood": 3,
+      "impact": 5,
+      "risk_score": 15,
+      "status": "Open",
+      "mitigation_plan": "Adopt draft harmonised notice specs with configurable frontend asset flags."
+    },
+    {
+      "id": "RSK-ECGT-003",
+      "urn": "urn:regulus:risk:RSK-ECGT-003",
+      "date_identified": "2026-03-01",
+      "description": "Incomplete repairability score data provided by cross-border non-EU sellers",
+      "owner": {
+        "id": "USR-003",
+        "name": "Sophia Weber"
+      },
+      "likelihood": 4,
+      "impact": 3,
+      "risk_score": 12,
+      "status": "Open",
+      "mitigation_plan": "Default to manufacturer catalog lookup where available."
+    }
+  ],
+  "decision_log": [
+    {
+      "id": "DEC-ECGT-001",
+      "urn": "urn:regulus:decision:DEC-ECGT-001",
+      "text": "Enforce strict keyword blocking for climate neutral claims prior to Sept 2026",
+      "legal_basis": "Article 3(1)(b)",
+      "type": "RiskBased",
+      "context": "Article 3(1)(b) prohibits unverified climate neutral claims. Delaying enforcement creates non-compliance liability.",
+      "status": "Ratified",
+      "decision_date": "2026-02-25",
+      "decision_maker": {
+        "id": "USR-001",
+        "name": "Elena Rostova"
+      },
+      "approvers": [
+        {
+          "id": "USR-001",
+          "name": "Elena Rostova"
+        },
+        {
+          "id": "USR-002",
+          "name": "Marcus Vance"
+        },
+        {
+          "id": "USR-003",
+          "name": "Sophia Weber"
+        }
+      ],
+      "informed": [
+        {
+          "id": "USR-004",
+          "name": "Lukas Meyer"
+        }
+      ],
+      "rationale": "Minimizes regulatory risk while providing sellers 6 months grace period on warning state.",
+      "related_risks": ["RSK-ECGT-001"],
+      "action_items": []
+    },
+    {
+      "id": "DEC-ECGT-002",
+      "urn": "urn:regulus:decision:DEC-ECGT-002",
+      "text": "Use EU Eco-Label registry API as primary verification source",
+      "legal_basis": "Article 3(1)(a)",
+      "type": "Policy",
+      "context": "EU official registry provides real-time verification of valid environmental labels.",
+      "status": "Ratified",
+      "decision_date": "2026-03-10",
+      "decision_maker": {
+        "id": "USR-002",
+        "name": "Marcus Vance"
+      },
+      "approvers": [
+        {
+          "id": "USR-001",
+          "name": "Elena Rostova"
+        },
+        {
+          "id": "USR-002",
+          "name": "Marcus Vance"
+        }
+      ],
+      "informed": [
+        {
+          "id": "USR-004",
+          "name": "Lukas Meyer"
+        }
+      ],
+      "rationale": "Direct API validation avoids manual verification overhead.",
+      "related_risks": [],
+      "action_items": []
+    }
+  ]
+}

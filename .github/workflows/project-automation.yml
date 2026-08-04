@@ -1,0 +1,19 @@
+name: GitHub Project Automation
+
+on:
+  issues:
+    types: [opened, labeled]
+  pull_request:
+    types: [opened, labeled]
+
+jobs:
+  add-to-project:
+    name: Add to GitHub Project
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add item to Project
+        uses: actions/add-to-project@v1
+        if: ${{ secrets.PROJECT_TOKEN != '' }}
+        with:
+          project-url: ${{ vars.PROJECT_URL }}
+          github-token: ${{ secrets.PROJECT_TOKEN }}

@@ -1,0 +1,103 @@
+{
+  "id": "LRD-2024-001",
+  "urn": "urn:regulus:lrd:LRD-2024-001",
+  "title": "EU Directive 2024/1799 (Empowering Consumers for the Green Transition - ECGT)",
+  "regulation": "EU Directive 2024/1799 (ECGT)",
+  "jurisdiction": ["EU", "DE", "FR", "IT", "ES", "IE", "NL", "PL", "AT", "BE"],
+  "enforcement_date": "2026-09-27",
+  "grace_period_end": "2027-03-27",
+  "lrd_owner": {
+    "id": "USR-001",
+    "name": "Elena Rostova",
+    "email": "elena.rostova@ebay.com",
+    "role": "Legal Counsel"
+  },
+  "pm_owner": {
+    "id": "USR-002",
+    "name": "Marcus Vance",
+    "email": "marcus.vance@ebay.com",
+    "role": "Lead PM"
+  },
+  "status": "Approved",
+  "version": "1.0.0",
+  "created": "2026-01-15T09:00:00Z",
+  "last_updated": "2026-02-10T14:30:00Z",
+  "sections": {
+    "legal_context": "EU Directive 2024/1799 amends Directives 2005/29/EC (Unfair Commercial Practices Directive) and 2011/83/EU (Consumer Rights Directive) to empower consumers for the green transition. It establishes strict rules against generic greenwashing, climate-neutral claims based on offsetting, and misleading sustainability labels while introducing mandatory disclosures for durability and repairability.",
+    "obligations": [
+      {
+        "id": "OBL-LRD-2024-001-001",
+        "urn": "urn:regulus:obligation:OBL-LRD-2024-001-001",
+        "article": "Article 3(1)(a)",
+        "text": "Prohibition of making generic environmental claims ('eco-friendly', 'green', 'climate positive', 'environmentally sound') unless based on recognized official eco-labels or clear verification.",
+        "type": "Prohibition",
+        "affected_surface": ["Search SRP", "View Item", "Item Specifics"],
+        "notes": "Applies to listing titles, descriptions, and custom item attributes on EU sites."
+      },
+      {
+        "id": "OBL-LRD-2024-001-002",
+        "urn": "urn:regulus:obligation:OBL-LRD-2024-001-002",
+        "article": "Article 3(1)(b)",
+        "text": "Prohibition of claims that a product has a neutral, reduced, or positive impact on the environment based on greenhouse gas emissions offsetting.",
+        "type": "Prohibition",
+        "affected_surface": ["View Item", "Checkout"],
+        "notes": "Product-level carbon offset claims strictly prohibited regardless of offset quality."
+      },
+      {
+        "id": "OBL-LRD-2024-001-003",
+        "urn": "urn:regulus:obligation:OBL-LRD-2024-001-003",
+        "article": "Article 4(2)",
+        "text": "Mandatory display of Harmonised Label and Harmonised Notice regarding commercial guarantees of durability provided by producers without extra cost for more than 2 years.",
+        "type": "Display",
+        "affected_surface": ["View Item", "Listing Flow"],
+        "notes": "Harmonised EU badge visual token + text mandatory."
+      },
+      {
+        "id": "OBL-LRD-2024-001-004",
+        "urn": "urn:regulus:obligation:OBL-LRD-2024-001-004",
+        "article": "Article 4(3)",
+        "text": "Mandatory disclosure of Repairability Index score (1.0 to 10.0 scale) or availability of spare parts for energy-related products.",
+        "type": "Disclosure",
+        "affected_surface": ["View Item", "Search Filter Panel"],
+        "notes": "Applies to smartphones, laptops, TVs, washing machines, and appliances."
+      },
+      {
+        "id": "OBL-LRD-2024-001-005",
+        "urn": "urn:regulus:obligation:OBL-LRD-2024-001-005",
+        "article": "Article 6(1)",
+        "text": "Mandatory disclosure of minimum period during which software updates will be made available for products with digital elements.",
+        "type": "Disclosure",
+        "affected_surface": ["View Item", "Item Specifics"],
+        "notes": "Required for smart home devices, wearables, and computing hardware."
+      }
+    ],
+    "ebay_applicability": "Applies to all C2C and B2C listings on EU eBay sites (DE, FR, IT, ES, IE, NL, PL, AT) displaying environmental claims, eco-labels, durability claims, or selling electronics and appliances.",
+    "affected_categories": ["Consumer Electronics", "Home Appliances", "Fashion & Apparel", "Automotive Parts & Accessories"],
+    "exemptions": "C2C private seller transactions are exempt from mandatory durability notices unless commercial seller status thresholds are triggered.",
+    "open_legal_questions": [
+      {
+        "id": "OLQ-001",
+        "question": "Does seller cross-border listing from UK to DE trigger mandatory Article 4(3) repairability disclosures?",
+        "asked_by": {
+          "id": "USR-002",
+          "name": "Marcus Vance"
+        },
+        "date_raised": "2026-01-20",
+        "resolution": "Yes, destination-based enforcement applies if shipping to EU consumer destination.",
+        "status": "Resolved"
+      }
+    ],
+    "related_lrds": []
+  },
+  "approvals": [
+    {
+      "approver": {
+        "id": "USR-001",
+        "name": "Elena Rostova"
+      },
+      "role": "Senior Legal Counsel",
+      "date": "2026-02-10T14:30:00Z",
+      "confirmed_via": "email"
+    }
+  ]
+}

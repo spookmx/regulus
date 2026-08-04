@@ -1,0 +1,120 @@
+{
+  "id": "PRD-ECGT",
+  "urn": "urn:regulus:prd:PRD-ECGT",
+  "title": "Empowering Consumers in Green Transition - E2E Product Spec",
+  "brd_ref": "BRD-ECGT-001",
+  "lrd_refs": ["LRD-2024-001"],
+  "prd_owner": {
+    "id": "USR-002",
+    "name": "Marcus Vance",
+    "email": "marcus.vance@ebay.com",
+    "role": "Lead PM"
+  },
+  "eng_lead": {
+    "id": "USR-004",
+    "name": "Lukas Meyer",
+    "email": "lukas.meyer@ebay.com",
+    "role": "Principal Eng"
+  },
+  "ux_lead": {
+    "id": "USR-005",
+    "name": "Aria Chen",
+    "email": "aria.chen@ebay.com",
+    "role": "Lead UX"
+  },
+  "status": "Approved",
+  "version": "2.0.0",
+  "created": "2026-03-05T08:30:00Z",
+  "last_updated": "2026-04-12T11:20:00Z",
+  "sections": {
+    "1_1_compliance": [
+      {
+        "id": "PRD-ECGT-1.1.1",
+        "urn": "urn:regulus:prdrequirement:PRD-ECGT-1.1.1",
+        "user_story": "As an EU buyer, I see a verified Eco-Label badge backed by accredited certification data on the View Item page.",
+        "brd_refs": ["BR-001"],
+        "lrd_refs": ["OBL-LRD-2024-001-001"],
+        "acceptance_criteria": [
+          "Display EU Eco-Label badge when seller uploads valid certificate URN",
+          "Tooltip links to EU Eco-Label registry verifier",
+          "Render badge in compliance with EU UI visual identity guidelines"
+        ],
+        "notes_dependencies": "EU Eco-Label Verification API",
+        "jira_links": ["ECGT-101"],
+        "status": "In Dev"
+      },
+      {
+        "id": "PRD-ECGT-1.1.2",
+        "urn": "urn:regulus:prdrequirement:PRD-ECGT-1.1.2",
+        "user_story": "As a seller, my listing form scans for prohibited greenwashing keywords and blocks unverified 'carbon neutral' claims.",
+        "brd_refs": ["BR-002", "BR-006"],
+        "lrd_refs": ["OBL-LRD-2024-001-002"],
+        "acceptance_criteria": [
+          "Listing API flags prohibited phrases ('100% climate neutral', 'zero emission product')",
+          "Validation banner directs seller to attach accredited verification certificate"
+        ],
+        "notes_dependencies": "Item Specifics Rules Engine",
+        "jira_links": ["ECGT-102"],
+        "status": "In Dev"
+      },
+      {
+        "id": "PRD-ECGT-1.1.3",
+        "urn": "urn:regulus:prdrequirement:PRD-ECGT-1.1.3",
+        "user_story": "As a buyer, I see harmonised commercial guarantee duration and repairability index score badges.",
+        "brd_refs": ["BR-003", "BR-004"],
+        "lrd_refs": ["OBL-LRD-2024-001-003", "OBL-LRD-2024-001-004"],
+        "acceptance_criteria": [
+          "Guarantee notice rendered with EU harmonised icon",
+          "Repairability score rendered on 1.0 - 10.0 scale visual badge"
+        ],
+        "notes_dependencies": "View Item Component Library",
+        "jira_links": ["ECGT-103", "ECGT-104"],
+        "status": "Approved"
+      },
+      {
+        "id": "PRD-ECGT-1.1.4",
+        "urn": "urn:regulus:prdrequirement:PRD-ECGT-1.1.4",
+        "user_story": "As an EU buyer purchasing smart electronics, I see the minimum guaranteed software update support period.",
+        "brd_refs": ["BR-005"],
+        "lrd_refs": ["OBL-LRD-2024-001-005"],
+        "acceptance_criteria": [
+          "Item Specifics renders 'Software Support End Date' or 'Guaranteed Updates (Years)'",
+          "Mandatory field for B2C sellers in Consumer Electronics category"
+        ],
+        "notes_dependencies": "Item Specifics Schema",
+        "jira_links": ["ECGT-105"],
+        "status": "Approved"
+      }
+    ],
+    "1_2_enhancements": [
+      {
+        "id": "PRD-ECGT-1.2.1",
+        "urn": "urn:regulus:prdrequirement:PRD-ECGT-1.2.1",
+        "user_story": "As an EU buyer, I can filter search results by Repairability Index score (e.g. >= 7.0).",
+        "brd_refs": ["BR-004"],
+        "lrd_refs": ["OBL-LRD-2024-001-004"],
+        "acceptance_criteria": [
+          "Search SRP filter sidebar includes Repairability Index range slider"
+        ],
+        "notes_dependencies": "Search Index Engine",
+        "jira_links": ["ECGT-201"],
+        "status": "Draft"
+      }
+    ],
+    "2_deferred": [
+      {
+        "id": "PRD-ECGT-2.1.1",
+        "urn": "urn:regulus:prdrequirement:PRD-ECGT-2.1.1",
+        "user_story": "Automated Document AI parsing of seller-uploaded eco-certificates.",
+        "brd_refs": ["BR-001"],
+        "lrd_refs": ["OBL-LRD-2024-001-001"],
+        "acceptance_criteria": [
+          "OCR extracts certificate expiration and issuer automatically"
+        ],
+        "notes_dependencies": "Document AI Microservice",
+        "jira_links": [],
+        "status": "Deferred"
+      }
+    ]
+  }
+}
