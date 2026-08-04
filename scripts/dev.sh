@@ -101,6 +101,8 @@ trap cleanup SIGINT SIGTERM EXIT
 # Start Backend if present
 if [ -d "backend" ]; then
   if [ -f "backend/app/main.py" ] || [ -f "backend/main.py" ]; then
+    echo "📦 Checking Backend dependencies..."
+    (cd backend && pip install -r requirements.txt >/dev/null 2>&1 || true)
     echo "📦 Launching Backend API server (uvicorn/fastapi)..."
     (cd backend && python3 -m uvicorn app.main:app --reload --port 8000 2>/dev/null || python3 -m uvicorn main:app --reload --port 8000 2>/dev/null) &
     BACKEND_PID=$!
@@ -109,6 +111,10 @@ fi
 
 # Start Frontend if present
 if [ -d "frontend" ] && [ -f "frontend/package.json" ]; then
+  if [ ! -d "frontend/node_modules" ]; then
+    echo "📦 Installing Frontend dependencies (npm install)..."
+    (cd frontend && npm install)
+  fi
   echo "💻 Launching Frontend application (Next.js)..."
   (cd frontend && npm run dev) &
   FRONTEND_PID=$!
