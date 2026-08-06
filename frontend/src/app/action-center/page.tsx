@@ -59,60 +59,59 @@ export default function ActionCenterPage() {
   });
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100">
+    <div className="min-h-screen flex flex-col bg-ebay-bg-primary text-ebay-fg-primary transition-colors duration-200">
       <Navbar pendingActionCount={pendingItems.length} />
 
-      {/* Toast Notification */}
+      {/* Toast Notification - eBay Style Section Notice */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 glass-panel bg-amber-900/90 text-amber-100 px-4 py-3 rounded-xl border border-amber-400/40 shadow-2xl flex items-center gap-2 animate-bounce">
-          <Zap className="w-5 h-5 text-amber-300" />
+        <div className="fixed bottom-6 right-6 z-50 bg-ebay-blue text-white px-4 py-3 rounded-2xl shadow-xl flex items-center gap-2.5 animate-bounce">
+          <Zap className="w-5 h-5 text-white" />
           <span className="text-xs font-semibold">{toastMessage}</span>
         </div>
       )}
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 lg:px-8 py-8 space-y-6">
-        {/* Title Header */}
-        <div className="glass-panel p-6 rounded-2xl border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        {/* Title Header - eBay Evo Card */}
+        <div className="evo-card p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-sm">
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-2xl lg:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-100 to-amber-300 bg-clip-text text-transparent">
+              <h1 className="text-2xl lg:text-3xl font-extrabold tracking-tight text-ebay-fg-primary">
                 Action Center (HITL Hub)
               </h1>
-              <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
-                §11.4 Human-in-the-Loop
+              <span className="px-3 py-1 rounded-full text-xs font-semibold bg-ebay-amber-bg text-ebay-amber border border-amber-500/30">
+                Human-in-the-Loop Hub
               </span>
             </div>
-            <p className="text-slate-400 text-xs mt-1">
+            <p className="text-ebay-fg-secondary text-xs mt-1">
               Centralized queue for Cascade Proposals, Approval Gates, Decision Sign-Offs, Meeting Extractions & Airtable Conflicts.
             </p>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="glass-card px-4 py-2 rounded-xl text-center">
-              <span className="text-[10px] uppercase font-bold text-slate-400 block">Pending HITL Actions</span>
-              <span className="text-xl font-extrabold text-amber-400">{pendingItems.length}</span>
+            <div className="bg-ebay-bg-secondary border border-ebay-border px-4 py-2 rounded-2xl text-center">
+              <span className="text-[10px] uppercase font-bold text-ebay-fg-secondary block">Pending Actions</span>
+              <span className="text-xl font-extrabold text-ebay-amber">{pendingItems.length}</span>
             </div>
-            <div className="glass-card px-4 py-2 rounded-xl text-center">
-              <span className="text-[10px] uppercase font-bold text-slate-400 block">Resolved Today</span>
-              <span className="text-xl font-extrabold text-emerald-400">{processedItems.length}</span>
+            <div className="bg-ebay-bg-secondary border border-ebay-border px-4 py-2 rounded-2xl text-center">
+              <span className="text-[10px] uppercase font-bold text-ebay-fg-secondary block">Resolved Today</span>
+              <span className="text-xl font-extrabold text-ebay-green">{processedItems.length}</span>
             </div>
           </div>
         </div>
 
-        {/* Filter Bar */}
-        <div className="glass-panel p-4 rounded-2xl border border-slate-800 flex flex-wrap items-center justify-between gap-4">
-          <div className="flex items-center gap-2 text-xs font-semibold text-slate-300">
-            <Filter className="w-4 h-4 text-amber-400" />
+        {/* Filter Bar - eBay Evo Control Bar */}
+        <div className="evo-card p-4 flex flex-wrap items-center justify-between gap-4 shadow-sm">
+          <div className="flex items-center gap-2 text-xs font-semibold text-ebay-fg-primary">
+            <Filter className="w-4 h-4 text-ebay-blue" />
             <span>Filter Queue:</span>
           </div>
 
           <div className="flex flex-wrap items-center gap-3 text-xs">
-            {/* Item Type filter */}
             <select
               id="action-type-filter"
               value={selectedType}
               onChange={(e) => setSelectedType(e.target.value)}
-              className="bg-slate-900 text-slate-200 px-3 py-2 rounded-xl border border-slate-700 focus:outline-none focus:border-amber-500"
+              className="bg-ebay-bg-primary text-ebay-fg-primary px-3 py-2 rounded-xl border border-ebay-border focus:outline-none focus:ring-2 focus:ring-ebay-blue"
             >
               <option value="ALL">All Item Types</option>
               <option value="Cascade Proposal">Cascade Proposal</option>
@@ -123,12 +122,11 @@ export default function ActionCenterPage() {
               <option value="Agent draft review">Agent Draft Review</option>
             </select>
 
-            {/* Priority filter */}
             <select
               id="action-priority-filter"
               value={selectedPriority}
               onChange={(e) => setSelectedPriority(e.target.value)}
-              className="bg-slate-900 text-slate-200 px-3 py-2 rounded-xl border border-slate-700 focus:outline-none focus:border-amber-500"
+              className="bg-ebay-bg-primary text-ebay-fg-primary px-3 py-2 rounded-xl border border-ebay-border focus:outline-none focus:ring-2 focus:ring-ebay-blue"
             >
               <option value="ALL">All Priorities</option>
               <option value="Urgent">Urgent</option>
@@ -142,80 +140,80 @@ export default function ActionCenterPage() {
         {/* Queue Items */}
         <div className="space-y-4">
           {filteredPending.length === 0 ? (
-            <div className="glass-panel p-12 rounded-2xl border border-slate-800 text-center space-y-3">
-              <CheckCircle2 className="w-12 h-12 text-emerald-400 mx-auto" />
-              <h3 className="text-lg font-bold text-slate-200">No Pending HITL Action Items</h3>
-              <p className="text-slate-400 text-xs">All cascade proposals and decision gates have been successfully reviewed.</p>
+            <div className="evo-card p-12 text-center space-y-3 shadow-sm">
+              <CheckCircle2 className="w-12 h-12 text-ebay-green mx-auto" />
+              <h3 className="text-lg font-bold text-ebay-fg-primary">No Pending Action Items</h3>
+              <p className="text-ebay-fg-secondary text-xs">All cascade proposals and decision gates have been successfully reviewed.</p>
             </div>
           ) : (
             filteredPending.map((item) => (
               <div
                 key={item.id}
-                className="glass-panel p-6 rounded-2xl border border-slate-800 hover:border-amber-500/40 transition-all space-y-4 shadow-lg"
+                className="evo-card p-6 space-y-4 shadow-sm hover:shadow-md border border-ebay-border transition-all"
               >
                 {/* Item Top Bar */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-ebay-border pb-3">
                   <div className="flex items-center gap-2">
                     <span
-                      className={`px-2.5 py-0.5 rounded-md text-[11px] font-extrabold uppercase ${
+                      className={`evo-badge uppercase ${
                         item.priority === 'Urgent'
-                          ? 'bg-rose-500/20 text-rose-300 border border-rose-500/40'
+                          ? 'bg-ebay-red-bg text-ebay-red border border-red-500/20'
                           : item.priority === 'High'
-                          ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40'
-                          : 'bg-slate-800 text-slate-300'
+                          ? 'bg-ebay-amber-bg text-ebay-amber border border-amber-500/20'
+                          : 'bg-ebay-bg-secondary text-ebay-fg-secondary border border-ebay-border'
                       }`}
                     >
                       {item.priority}
                     </span>
 
-                    <span className="px-2.5 py-0.5 rounded-md text-[11px] font-mono bg-indigo-950 text-indigo-300 border border-indigo-500/30">
+                    <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-ebay-blue/10 text-ebay-blue border border-ebay-blue/20">
                       {item.type}
                     </span>
 
-                    <span className="text-xs text-slate-400 font-mono">
-                      Source: <strong className="text-cyan-400">{item.sourceAgent}</strong>
+                    <span className="text-xs text-ebay-fg-secondary font-medium">
+                      Source: <strong className="text-ebay-fg-primary">{item.sourceAgent}</strong>
                     </span>
                   </div>
 
-                  <div className="flex items-center gap-2 text-xs text-slate-400 font-mono">
-                    <Clock className="w-3.5 h-3.5 text-amber-400" />
+                  <div className="flex items-center gap-2 text-xs text-ebay-fg-secondary font-mono">
+                    <Clock className="w-3.5 h-3.5 text-ebay-amber" />
                     <span>Deadline: {item.deadline}</span>
                   </div>
                 </div>
 
                 {/* Main Content */}
                 <div className="space-y-2">
-                  <h3 className="font-bold text-slate-100 text-base">{item.title}</h3>
-                  <p className="text-slate-300 text-xs bg-slate-900/60 p-3 rounded-xl border border-slate-800">
+                  <h3 className="font-bold text-ebay-fg-primary text-base">{item.title}</h3>
+                  <p className="text-ebay-fg-primary text-xs bg-ebay-bg-secondary p-3 rounded-xl border border-ebay-border">
                     {item.contextSummary}
                   </p>
 
                   {/* Diff Snippet if applicable */}
                   {item.diffSnippet && (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs font-mono pt-2">
-                      <div className="p-3 rounded-xl bg-rose-950/20 border border-rose-500/30">
-                        <span className="text-[10px] text-rose-400 font-bold block mb-1">Previous Context</span>
-                        <p className="text-rose-200">{item.diffSnippet.before}</p>
+                      <div className="p-3 rounded-xl bg-ebay-red-bg border border-red-500/20">
+                        <span className="text-[10px] text-ebay-red font-bold block mb-1">Previous Context</span>
+                        <p className="text-ebay-fg-primary">{item.diffSnippet.before}</p>
                       </div>
-                      <div className="p-3 rounded-xl bg-emerald-950/20 border border-emerald-500/30">
-                        <span className="text-[10px] text-emerald-400 font-bold block mb-1">Proposed Cascade Change</span>
-                        <p className="text-emerald-200">{item.diffSnippet.after}</p>
+                      <div className="p-3 rounded-xl bg-ebay-green-bg border border-green-500/20">
+                        <span className="text-[10px] text-ebay-green font-bold block mb-1">Proposed Cascade Change</span>
+                        <p className="text-ebay-fg-primary">{item.diffSnippet.after}</p>
                       </div>
                     </div>
                   )}
                 </div>
 
-                {/* Actions Bar per §11.4 table */}
-                <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-800">
+                {/* Actions Bar */}
+                <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-ebay-border">
                   <button
                     onClick={() => handleSlackNotify(item.id, item.title)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all flex items-center gap-1.5 ${
+                    className={`px-4 py-2 rounded-full text-xs font-semibold transition-all flex items-center gap-1.5 ${
                       item.slackNotified
-                        ? 'bg-slate-800 text-emerald-400 border border-emerald-500/30'
-                        : 'bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700'
+                        ? 'bg-ebay-green-bg text-ebay-green border border-green-500/30'
+                        : 'bg-ebay-bg-secondary hover:bg-ebay-bg-tertiary text-ebay-fg-primary border border-ebay-border'
                     }`}
                   >
-                    <Send className="w-3.5 h-3.5 text-cyan-400" />
+                    <Send className="w-3.5 h-3.5 text-ebay-blue" />
                     <span>{item.slackNotified ? 'Slack Notified ✓' : 'Notify Slack Channel'}</span>
                   </button>
 
@@ -224,19 +222,19 @@ export default function ActionCenterPage() {
                       <>
                         <button
                           onClick={() => handleAction(item.id, 'Approved', item.title)}
-                          className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-cyan-600/30 text-cyan-200 border border-cyan-500/40 hover:bg-cyan-600 hover:text-white transition-all"
+                          className="px-4 py-2 rounded-full text-xs font-semibold bg-ebay-blue text-white shadow-sm hover:bg-blue-700 transition-all"
                         >
                           Use Regulus
                         </button>
                         <button
                           onClick={() => handleAction(item.id, 'Approved', item.title)}
-                          className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-indigo-600/30 text-indigo-200 border border-indigo-500/40 hover:bg-indigo-600 hover:text-white transition-all"
+                          className="px-4 py-2 rounded-full text-xs font-semibold bg-ebay-bg-secondary text-ebay-fg-primary border border-ebay-border hover:bg-ebay-bg-tertiary transition-all"
                         >
                           Use Airtable
                         </button>
                         <button
                           onClick={() => handleAction(item.id, 'Merged', item.title)}
-                          className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-purple-600/30 text-purple-200 border border-purple-500/40 hover:bg-purple-600 hover:text-white transition-all"
+                          className="px-4 py-2 rounded-full text-xs font-semibold bg-ebay-blue/10 text-ebay-blue border border-ebay-blue/30 hover:bg-ebay-blue/20 transition-all"
                         >
                           Merge Both
                         </button>
@@ -246,14 +244,14 @@ export default function ActionCenterPage() {
                         <button
                           id={`reject-btn-${item.id}`}
                           onClick={() => handleAction(item.id, 'Rejected', item.title)}
-                          className="px-4 py-2 rounded-xl text-xs font-bold bg-rose-600/20 text-rose-300 border border-rose-500/40 hover:bg-rose-600 hover:text-white transition-all flex items-center gap-1.5"
+                          className="px-5 py-2.5 rounded-full text-xs font-bold bg-ebay-red-bg text-ebay-red border border-red-500/30 hover:bg-red-600 hover:text-white transition-all flex items-center gap-1.5"
                         >
                           <XCircle className="w-4 h-4" /> Reject / Send Back
                         </button>
                         <button
                           id={`approve-btn-${item.id}`}
                           onClick={() => handleAction(item.id, 'Approved', item.title)}
-                          className="px-4 py-2 rounded-xl text-xs font-bold bg-emerald-600 text-white shadow-lg shadow-emerald-600/20 hover:bg-emerald-500 transition-all flex items-center gap-1.5"
+                          className="px-5 py-2.5 rounded-full text-xs font-bold bg-ebay-blue text-white shadow-sm hover:bg-blue-700 transition-all flex items-center gap-1.5"
                         >
                           <CheckCircle2 className="w-4 h-4" /> Approve & Cascade
                         </button>

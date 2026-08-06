@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
+import { useTheme } from '@/context/ThemeProvider';
 import { UserRole } from '@/lib/types';
 import {
   ShieldCheck,
@@ -14,11 +15,14 @@ import {
   UserCheck,
   ChevronDown,
   Sparkles,
+  Sun,
+  Moon,
 } from 'lucide-react';
 
 export function Navbar({ pendingActionCount = 6 }: { pendingActionCount?: number }) {
   const pathname = usePathname();
   const { user, role, switchUserRole } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const [roleDropdownOpen, setRoleDropdownOpen] = React.useState(false);
 
   const rolesList: { role: UserRole; label: string; desc: string }[] = [
@@ -38,68 +42,66 @@ export function Navbar({ pendingActionCount = 6 }: { pendingActionCount?: number
   };
 
   return (
-    <header className="sticky top-0 z-50 glass-panel border-b border-slate-800/80 px-4 lg:px-8 py-3 transition-all">
+    <header className="sticky top-0 z-50 bg-ebay-bg-primary border-b border-ebay-border px-4 lg:px-8 py-3 transition-colors duration-200 shadow-sm">
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
-        {/* Brand & Logo */}
+        {/* Brand & Logo - eBay Evo Style */}
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 via-indigo-500 to-purple-600 p-0.5 shadow-lg shadow-indigo-500/20 group-hover:scale-105 transition-transform">
-            <div className="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
-              <ShieldCheck className="w-5 h-5 text-cyan-400 group-hover:rotate-6 transition-transform" />
-            </div>
+          <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-ebay-blue text-white shadow-sm group-hover:scale-105 transition-transform">
+            <ShieldCheck className="w-5 h-5 text-white group-hover:rotate-6 transition-transform" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-extrabold text-xl tracking-tight bg-gradient-to-r from-white via-slate-200 to-cyan-300 bg-clip-text text-transparent">
+              <span className="font-extrabold text-xl tracking-tight text-ebay-fg-primary">
                 REGULUS
               </span>
-              <span className="text-[10px] uppercase font-bold tracking-widest px-2 py-0.5 rounded-full bg-cyan-950/80 border border-cyan-500/30 text-cyan-300">
-                MVP v1.0
+              <span className="text-[10px] uppercase font-bold tracking-widest px-2 py-0.5 rounded-full bg-ebay-blue/10 border border-ebay-blue/30 text-ebay-blue">
+                eBay Evo
               </span>
             </div>
-            <p className="text-[11px] text-slate-400 hidden sm:block">
-              Multi-Agent Regulatory Compliance & Traceability Engine
+            <p className="text-[11px] text-ebay-fg-secondary hidden sm:block font-medium">
+              Multi-Agent Compliance & Traceability Engine
             </p>
           </div>
         </Link>
 
-        {/* Navigation Tabs */}
-        <nav className="flex items-center gap-1 sm:gap-2">
+        {/* Navigation Tabs - eBay Evo Segmented Pill / Underline Tabs */}
+        <nav className="flex items-center gap-1 sm:gap-1.5 bg-ebay-bg-secondary p-1 rounded-full border border-ebay-border">
           <Link
             href="/"
-            className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all ${
+            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold transition-all ${
               isActive('/')
-                ? 'bg-indigo-600/20 text-indigo-300 border border-indigo-500/30 shadow-sm shadow-indigo-500/10'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+                ? 'bg-ebay-blue text-white shadow-sm'
+                : 'text-ebay-fg-secondary hover:text-ebay-fg-primary hover:bg-ebay-bg-card'
             }`}
           >
-            <LayoutDashboard className="w-4 h-4 text-indigo-400" />
+            <LayoutDashboard className="w-4 h-4" />
             <span>Portfolio</span>
           </Link>
 
           <Link
             href="/traceability"
-            className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all ${
+            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold transition-all ${
               isActive('/traceability')
-                ? 'bg-cyan-600/20 text-cyan-300 border border-cyan-500/30 shadow-sm shadow-cyan-500/10'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+                ? 'bg-ebay-blue text-white shadow-sm'
+                : 'text-ebay-fg-secondary hover:text-ebay-fg-primary hover:bg-ebay-bg-card'
             }`}
           >
-            <GitGraph className="w-4 h-4 text-cyan-400" />
+            <GitGraph className="w-4 h-4" />
             <span>Traceability</span>
           </Link>
 
           <Link
             href="/action-center"
-            className={`relative flex items-center gap-2 px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all ${
+            className={`relative flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold transition-all ${
               isActive('/action-center')
-                ? 'bg-amber-600/20 text-amber-300 border border-amber-500/30 shadow-sm shadow-amber-500/10'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+                ? 'bg-ebay-blue text-white shadow-sm'
+                : 'text-ebay-fg-secondary hover:text-ebay-fg-primary hover:bg-ebay-bg-card'
             }`}
           >
-            <Bell className="w-4 h-4 text-amber-400" />
+            <Bell className="w-4 h-4" />
             <span>Action Center</span>
             {pendingActionCount > 0 && (
-              <span className="ml-1 inline-flex items-center justify-center w-5 h-5 text-[10px] font-bold text-slate-950 bg-amber-400 rounded-full animate-pulse">
+              <span className="inline-flex items-center justify-center w-5 h-5 text-[10px] font-bold text-white bg-red-600 rounded-full">
                 {pendingActionCount}
               </span>
             )}
@@ -107,63 +109,80 @@ export function Navbar({ pendingActionCount = 6 }: { pendingActionCount?: number
 
           <Link
             href="/decisions"
-            className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all ${
+            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold transition-all ${
               isActive('/decisions')
-                ? 'bg-purple-600/20 text-purple-300 border border-purple-500/30 shadow-sm shadow-purple-500/10'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+                ? 'bg-ebay-blue text-white shadow-sm'
+                : 'text-ebay-fg-secondary hover:text-ebay-fg-primary hover:bg-ebay-bg-card'
             }`}
           >
-            <Scale className="w-4 h-4 text-purple-400" />
+            <Scale className="w-4 h-4" />
             <span>Decisions</span>
           </Link>
         </nav>
 
-        {/* User RBAC Selector */}
-        <div className="relative">
+        {/* Right Controls: Theme Switcher & RBAC Selector */}
+        <div className="flex items-center gap-2">
+          {/* Theme Switcher Button */}
           <button
-            onClick={() => setRoleDropdownOpen(!roleDropdownOpen)}
-            className="flex items-center gap-2.5 px-3 py-1.5 rounded-xl glass-card text-left text-xs text-slate-200 hover:bg-slate-800/70 transition-all border border-slate-700/60"
+            onClick={toggleTheme}
+            aria-label="Toggle Light/Dark Theme"
+            className="p-2 rounded-full border border-ebay-border bg-ebay-bg-card text-ebay-fg-primary hover:bg-ebay-bg-secondary transition-colors shadow-sm"
+            title={`Switch to ${theme === 'light' ? 'Dark' : 'Light'} Mode`}
           >
-            <div className="w-7 h-7 rounded-full bg-indigo-500/20 border border-indigo-400/40 flex items-center justify-center overflow-hidden">
-              <UserCheck className="w-4 h-4 text-indigo-300" />
-            </div>
-            <div className="hidden md:block">
-              <div className="font-semibold text-slate-200 leading-tight">{user?.name}</div>
-              <div className="text-[10px] font-mono text-cyan-400 capitalize">{role.replace('_', ' ')}</div>
-            </div>
-            <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
+            {theme === 'light' ? (
+              <Moon className="w-4 h-4 text-slate-700" />
+            ) : (
+              <Sun className="w-4 h-4 text-amber-400" />
+            )}
           </button>
 
-          {roleDropdownOpen && (
-            <div className="absolute right-0 mt-2 w-72 glass-panel rounded-2xl border border-slate-700/80 shadow-2xl p-2 z-50">
-              <div className="px-3 py-2 border-b border-slate-800 text-xs font-medium text-slate-400 flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                <span>Simulate RBAC User Role (§12)</span>
+          {/* User RBAC Selector */}
+          <div className="relative">
+            <button
+              onClick={() => setRoleDropdownOpen(!roleDropdownOpen)}
+              className="flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-ebay-bg-card text-left text-xs text-ebay-fg-primary hover:bg-ebay-bg-secondary transition-all border border-ebay-border shadow-sm"
+            >
+              <div className="w-7 h-7 rounded-full bg-ebay-blue/10 border border-ebay-blue/30 flex items-center justify-center overflow-hidden text-ebay-blue">
+                <UserCheck className="w-4 h-4" />
               </div>
-              <div className="py-1 max-h-80 overflow-y-auto">
-                {rolesList.map((r) => (
-                  <button
-                    key={r.role}
-                    onClick={() => {
-                      switchUserRole(r.role);
-                      setRoleDropdownOpen(false);
-                    }}
-                    className={`w-full text-left px-3 py-2 rounded-xl text-xs transition-colors flex flex-col gap-0.5 ${
-                      role === r.role
-                        ? 'bg-indigo-600/30 text-indigo-200 border border-indigo-500/40'
-                        : 'hover:bg-slate-800/60 text-slate-300'
-                    }`}
-                  >
-                    <div className="font-semibold flex items-center justify-between">
-                      <span>{r.label}</span>
-                      {role === r.role && <span className="text-[10px] text-cyan-400 font-bold">Active</span>}
-                    </div>
-                    <div className="text-[10px] text-slate-400 leading-tight">{r.desc}</div>
-                  </button>
-                ))}
+              <div className="hidden md:block">
+                <div className="font-bold text-ebay-fg-primary leading-tight">{user?.name}</div>
+                <div className="text-[10px] font-mono text-ebay-blue capitalize">{role.replace('_', ' ')}</div>
               </div>
-            </div>
-          )}
+              <ChevronDown className="w-3.5 h-3.5 text-ebay-fg-secondary" />
+            </button>
+
+            {roleDropdownOpen && (
+              <div className="absolute right-0 mt-2 w-72 bg-ebay-bg-card rounded-2xl border border-ebay-border shadow-xl p-2 z-50">
+                <div className="px-3 py-2 border-b border-ebay-border text-xs font-semibold text-ebay-fg-secondary flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                  <span>Simulate RBAC User Role</span>
+                </div>
+                <div className="py-1 max-h-80 overflow-y-auto">
+                  {rolesList.map((r) => (
+                    <button
+                      key={r.role}
+                      onClick={() => {
+                        switchUserRole(r.role);
+                        setRoleDropdownOpen(false);
+                      }}
+                      className={`w-full text-left px-3 py-2 rounded-xl text-xs transition-colors flex flex-col gap-0.5 ${
+                        role === r.role
+                          ? 'bg-ebay-blue/10 text-ebay-blue border border-ebay-blue/30 font-semibold'
+                          : 'hover:bg-ebay-bg-secondary text-ebay-fg-primary'
+                      }`}
+                    >
+                      <div className="font-semibold flex items-center justify-between">
+                        <span>{r.label}</span>
+                        {role === r.role && <span className="text-[10px] text-ebay-blue font-bold">Active</span>}
+                      </div>
+                      <div className="text-[10px] text-ebay-fg-secondary leading-tight">{r.desc}</div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </header>

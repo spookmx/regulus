@@ -19,7 +19,6 @@ import {
   AlertTriangle,
   Clock,
   Layers,
-  ArrowUpDown,
   FileCheck,
 } from 'lucide-react';
 
@@ -44,57 +43,56 @@ export default function ProjectPortfolioPage() {
     setTimeout(() => setToastMessage(null), 3000);
   };
 
-  // Days to enforcement badge renderer per §11.1
-  // Color coding: Days-to-Enforcement (red <= 30, yellow <= 90, green > 90)
+  // Days to enforcement badge renderer - eBay Evo accessible badge style
   const renderDaysBadge = (days: number) => {
     if (days <= 30) {
       return (
-        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-bold bg-rose-500/15 text-rose-300 border border-rose-500/40">
-          <Clock className="w-3.5 h-3.5 text-rose-400" />
+        <span className="evo-badge bg-ebay-red-bg text-ebay-red border border-red-500/20">
+          <Clock className="w-3.5 h-3.5" />
           <span>{days}d left</span>
         </span>
       );
     } else if (days <= 90) {
       return (
-        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-bold bg-amber-500/15 text-amber-300 border border-amber-500/40">
-          <Clock className="w-3.5 h-3.5 text-amber-400" />
+        <span className="evo-badge bg-ebay-amber-bg text-ebay-amber border border-amber-500/20">
+          <Clock className="w-3.5 h-3.5" />
           <span>{days}d left</span>
         </span>
       );
     } else {
       return (
-        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/40">
-          <Clock className="w-3.5 h-3.5 text-emerald-400" />
+        <span className="evo-badge bg-ebay-green-bg text-ebay-green border border-green-500/20">
+          <Clock className="w-3.5 h-3.5" />
           <span>{days}d left</span>
         </span>
       );
     }
   };
 
-  // Status Badge
+  // Status Badge - eBay Evo Pill Badge
   const renderStatusBadge = (status: ProjectStatus) => {
     switch (status) {
       case 'On Track':
         return (
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+          <span className="evo-badge bg-ebay-green-bg text-ebay-green border border-green-500/20">
             <CheckCircle2 className="w-3 h-3" /> On Track
           </span>
         );
       case 'At Risk':
         return (
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-500/10 text-amber-400 border border-amber-500/20">
+          <span className="evo-badge bg-ebay-amber-bg text-ebay-amber border border-amber-500/20">
             <AlertTriangle className="w-3 h-3" /> At Risk
           </span>
         );
       case 'Blocked':
         return (
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-rose-500/10 text-rose-400 border border-rose-500/20">
+          <span className="evo-badge bg-ebay-red-bg text-ebay-red border border-red-500/20">
             <ShieldAlert className="w-3 h-3" /> Blocked
           </span>
         );
       case 'Completed':
         return (
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-500/10 text-blue-400 border border-blue-500/20">
+          <span className="evo-badge bg-ebay-info-bg text-ebay-info border border-blue-500/20">
             <FileCheck className="w-3 h-3" /> Completed
           </span>
         );
@@ -159,42 +157,42 @@ export default function ProjectPortfolioPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100">
+    <div className="min-h-screen flex flex-col bg-ebay-bg-primary text-ebay-fg-primary transition-colors duration-200">
       <Navbar />
 
-      {/* Toast Notification */}
+      {/* Toast Notification - eBay Section Notice Style */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 glass-panel bg-indigo-900/90 text-indigo-100 px-4 py-3 rounded-xl border border-indigo-400/40 shadow-2xl flex items-center gap-2 animate-bounce">
-          <CheckCircle2 className="w-5 h-5 text-indigo-300" />
-          <span className="text-xs font-medium">{toastMessage}</span>
+        <div className="fixed bottom-6 right-6 z-50 bg-ebay-blue text-white px-4 py-3 rounded-2xl shadow-xl flex items-center gap-2.5 animate-bounce">
+          <CheckCircle2 className="w-5 h-5 text-white" />
+          <span className="text-xs font-semibold">{toastMessage}</span>
         </div>
       )}
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 lg:px-8 py-8 space-y-6">
-        {/* Header Title Section */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 glass-panel p-6 rounded-2xl border border-slate-800">
+        {/* Header Title Section - eBay Evo Card */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 evo-card p-6 shadow-sm">
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-2xl lg:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-100 to-indigo-300 bg-clip-text text-transparent">
+              <h1 className="text-2xl lg:text-3xl font-extrabold tracking-tight text-ebay-fg-primary">
                 Project Portfolio Roadmap
               </h1>
-              <span className="px-3 py-1 rounded-full text-xs font-semibold bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">
-                Airtable H1&apos;25 Replacement
+              <span className="px-3 py-1 rounded-full text-xs font-semibold bg-ebay-blue/10 text-ebay-blue border border-ebay-blue/30">
+                Airtable H1&apos;25 Engine
               </span>
             </div>
-            <p className="text-slate-400 text-sm mt-1">
+            <p className="text-ebay-fg-secondary text-sm mt-1">
               Multi-Agent Compliance Tracking across EU AI Act, DORA, ESG, MiCA & GDPR Regulations.
             </p>
           </div>
 
           <div className="flex items-center gap-3">
-            {/* View Mode Toggle */}
-            <div className="flex items-center bg-slate-900/80 p-1 rounded-xl border border-slate-800">
+            {/* View Mode Toggle - eBay Segmented Control */}
+            <div className="flex items-center bg-ebay-bg-secondary p-1 rounded-full border border-ebay-border">
               <button
                 id="view-table-btn"
                 onClick={() => setViewMode('table')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all ${
-                  viewMode === 'table' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-400 hover:text-slate-200'
+                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 transition-all ${
+                  viewMode === 'table' ? 'bg-ebay-blue text-white shadow-sm' : 'text-ebay-fg-secondary hover:text-ebay-fg-primary'
                 }`}
               >
                 <ListFilter className="w-3.5 h-3.5" /> Table
@@ -202,8 +200,8 @@ export default function ProjectPortfolioPage() {
               <button
                 id="view-grid-btn"
                 onClick={() => setViewMode('grid')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all ${
-                  viewMode === 'grid' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-400 hover:text-slate-200'
+                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 transition-all ${
+                  viewMode === 'grid' ? 'bg-ebay-blue text-white shadow-sm' : 'text-ebay-fg-secondary hover:text-ebay-fg-primary'
                 }`}
               >
                 <LayoutGrid className="w-3.5 h-3.5" /> Grid Cards
@@ -212,28 +210,76 @@ export default function ProjectPortfolioPage() {
           </div>
         </div>
 
-        {/* Filter Toolbar */}
-        <div className="glass-panel p-4 rounded-2xl border border-slate-800 flex flex-col lg:flex-row gap-4 justify-between items-start lg:items-center">
+        {/* Portfolio Stats Summary - eBay Evo Metrics Cards Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="evo-card p-4 flex items-center justify-between">
+            <div>
+              <span className="text-[10px] uppercase font-bold text-ebay-fg-secondary tracking-wider block">Total Active Projects</span>
+              <span className="text-2xl font-extrabold text-ebay-fg-primary">{projects.length}</span>
+            </div>
+            <div className="w-10 h-10 rounded-full bg-ebay-blue/10 border border-ebay-blue/20 flex items-center justify-center text-ebay-blue">
+              <Layers className="w-5 h-5" />
+            </div>
+          </div>
+
+          <div className="evo-card p-4 flex items-center justify-between">
+            <div>
+              <span className="text-[10px] uppercase font-bold text-ebay-fg-secondary tracking-wider block">On Track</span>
+              <span className="text-2xl font-extrabold text-ebay-green">
+                {projects.filter((p) => p.status === 'On Track').length}
+              </span>
+            </div>
+            <div className="w-10 h-10 rounded-full bg-ebay-green-bg border border-green-500/20 flex items-center justify-center text-ebay-green">
+              <CheckCircle2 className="w-5 h-5" />
+            </div>
+          </div>
+
+          <div className="evo-card p-4 flex items-center justify-between">
+            <div>
+              <span className="text-[10px] uppercase font-bold text-ebay-fg-secondary tracking-wider block">At Risk / Blocked</span>
+              <span className="text-2xl font-extrabold text-ebay-amber">
+                {projects.filter((p) => p.status === 'At Risk' || p.status === 'Blocked').length}
+              </span>
+            </div>
+            <div className="w-10 h-10 rounded-full bg-ebay-amber-bg border border-amber-500/20 flex items-center justify-center text-ebay-amber">
+              <AlertTriangle className="w-5 h-5" />
+            </div>
+          </div>
+
+          <div className="evo-card p-4 flex items-center justify-between">
+            <div>
+              <span className="text-[10px] uppercase font-bold text-ebay-fg-secondary tracking-wider block">Avg Compliance Score</span>
+              <span className="text-2xl font-extrabold text-ebay-blue">
+                {Math.round(projects.reduce((acc, p) => acc + p.complianceScore, 0) / projects.length)}%
+              </span>
+            </div>
+            <div className="w-10 h-10 rounded-full bg-ebay-blue/10 border border-ebay-blue/20 flex items-center justify-center text-ebay-blue">
+              <FileCheck className="w-5 h-5" />
+            </div>
+          </div>
+        </div>
+
+        {/* Filter Toolbar - eBay Evo Control Panel */}
+        <div className="evo-card p-4 flex flex-col lg:flex-row gap-4 justify-between items-start lg:items-center shadow-sm">
           {/* Search bar */}
           <div className="relative w-full lg:w-72">
-            <Search className="absolute left-3 top-2.5 w-4 h-4 text-slate-400" />
+            <Search className="absolute left-3 top-2.5 w-4 h-4 text-ebay-fg-secondary" />
             <input
               type="text"
               placeholder="Search projects, codes..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-slate-900/90 text-xs text-slate-200 pl-9 pr-3 py-2 rounded-xl border border-slate-700/70 focus:outline-none focus:border-indigo-500 transition-all placeholder:text-slate-500"
+              className="w-full bg-ebay-bg-primary text-xs text-ebay-fg-primary pl-9 pr-3 py-2 rounded-xl border border-ebay-border focus:outline-none focus:ring-2 focus:ring-ebay-blue transition-all placeholder:text-ebay-fg-disabled"
             />
           </div>
 
           {/* Filters Selectors */}
           <div className="flex flex-wrap items-center gap-2.5 w-full lg:w-auto">
-            {/* Regulation */}
             <select
               id="filter-regulation"
               value={selectedRegulation}
               onChange={(e) => setSelectedRegulation(e.target.value)}
-              className="bg-slate-900/90 text-xs text-slate-200 px-3 py-2 rounded-xl border border-slate-700/70 focus:outline-none focus:border-indigo-500"
+              className="bg-ebay-bg-primary text-xs text-ebay-fg-primary px-3 py-2 rounded-xl border border-ebay-border focus:outline-none focus:ring-2 focus:ring-ebay-blue"
             >
               <option value="ALL">All Regulations</option>
               <option value="EU AI Act">EU AI Act</option>
@@ -243,12 +289,11 @@ export default function ProjectPortfolioPage() {
               <option value="GDPR">GDPR</option>
             </select>
 
-            {/* Status */}
             <select
               id="filter-status"
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
-              className="bg-slate-900/90 text-xs text-slate-200 px-3 py-2 rounded-xl border border-slate-700/70 focus:outline-none focus:border-indigo-500"
+              className="bg-ebay-bg-primary text-xs text-ebay-fg-primary px-3 py-2 rounded-xl border border-ebay-border focus:outline-none focus:ring-2 focus:ring-ebay-blue"
             >
               <option value="ALL">All Statuses</option>
               <option value="On Track">On Track</option>
@@ -257,12 +302,11 @@ export default function ProjectPortfolioPage() {
               <option value="Completed">Completed</option>
             </select>
 
-            {/* Phase */}
             <select
               id="filter-phase"
               value={selectedPhase}
               onChange={(e) => setSelectedPhase(e.target.value)}
-              className="bg-slate-900/90 text-xs text-slate-200 px-3 py-2 rounded-xl border border-slate-700/70 focus:outline-none focus:border-indigo-500"
+              className="bg-ebay-bg-primary text-xs text-ebay-fg-primary px-3 py-2 rounded-xl border border-ebay-border focus:outline-none focus:ring-2 focus:ring-ebay-blue"
             >
               <option value="ALL">All Phases</option>
               <option value="Discovery">Discovery</option>
@@ -272,12 +316,11 @@ export default function ProjectPortfolioPage() {
               <option value="Sign-off">Sign-off</option>
             </select>
 
-            {/* PM */}
             <select
               id="filter-pm"
               value={selectedPM}
               onChange={(e) => setSelectedPM(e.target.value)}
-              className="bg-slate-900/90 text-xs text-slate-200 px-3 py-2 rounded-xl border border-slate-700/70 focus:outline-none focus:border-indigo-500"
+              className="bg-ebay-bg-primary text-xs text-ebay-fg-primary px-3 py-2 rounded-xl border border-ebay-border focus:outline-none focus:ring-2 focus:ring-ebay-blue"
             >
               <option value="ALL">All PMs</option>
               <option value="Sarah Chen">Sarah Chen</option>
@@ -287,20 +330,20 @@ export default function ProjectPortfolioPage() {
             </select>
 
             {/* Group By */}
-            <div className="flex items-center gap-1.5 bg-slate-900/90 px-3 py-1.5 rounded-xl border border-slate-700/70 text-xs">
-              <Layers className="w-3.5 h-3.5 text-cyan-400" />
-              <span className="text-slate-400">Group by:</span>
+            <div className="flex items-center gap-1.5 bg-ebay-bg-secondary px-3 py-1.5 rounded-xl border border-ebay-border text-xs">
+              <Layers className="w-3.5 h-3.5 text-ebay-blue" />
+              <span className="text-ebay-fg-secondary">Group by:</span>
               <select
                 id="group-by-select"
                 value={groupBy}
                 onChange={(e) => setGroupBy(e.target.value as any)}
-                className="bg-transparent text-cyan-300 font-medium focus:outline-none cursor-pointer"
+                className="bg-transparent text-ebay-blue font-semibold focus:outline-none cursor-pointer"
               >
-                <option value="none" className="bg-slate-900 text-slate-200">None</option>
-                <option value="regulation" className="bg-slate-900 text-slate-200">Regulation</option>
-                <option value="phase" className="bg-slate-900 text-slate-200">Phase</option>
-                <option value="pm" className="bg-slate-900 text-slate-200">PM Owner</option>
-                <option value="program" className="bg-slate-900 text-slate-200">Program</option>
+                <option value="none">None</option>
+                <option value="regulation">Regulation</option>
+                <option value="phase">Phase</option>
+                <option value="pm">PM Owner</option>
+                <option value="program">Program</option>
               </select>
             </div>
           </div>
@@ -310,19 +353,19 @@ export default function ProjectPortfolioPage() {
         {Object.entries(groupedProjects).map(([groupTitle, groupItems]) => (
           <div key={groupTitle} className="space-y-4">
             {groupBy !== 'none' && (
-              <div className="flex items-center gap-3 border-b border-slate-800 pb-2">
-                <span className="text-lg font-bold text-slate-200">{groupTitle}</span>
-                <span className="px-2 py-0.5 rounded-full text-xs font-mono bg-slate-800 text-slate-400">
+              <div className="flex items-center gap-3 border-b border-ebay-border pb-2">
+                <span className="text-lg font-bold text-ebay-fg-primary">{groupTitle}</span>
+                <span className="px-2.5 py-0.5 rounded-full text-xs font-mono bg-ebay-bg-secondary text-ebay-fg-secondary border border-ebay-border">
                   {groupItems.length} project(s)
                 </span>
               </div>
             )}
 
             {viewMode === 'table' ? (
-              <div className="glass-panel rounded-2xl border border-slate-800 overflow-hidden shadow-xl">
+              <div className="evo-card overflow-hidden shadow-sm">
                 <div className="overflow-x-auto">
                   <table className="w-full text-left text-xs">
-                    <thead className="bg-slate-900/90 text-slate-400 uppercase tracking-wider font-semibold border-b border-slate-800">
+                    <thead className="bg-ebay-bg-secondary text-ebay-fg-secondary uppercase tracking-wider font-semibold border-b border-ebay-border">
                       <tr>
                         <th className="py-3.5 px-4">Project & Code</th>
                         <th className="py-3.5 px-4">Regulation</th>
@@ -336,37 +379,37 @@ export default function ProjectPortfolioPage() {
                         <th className="py-3.5 px-4 text-right">Quick Actions</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-800/60">
+                    <tbody className="divide-y divide-ebay-border">
                       {groupItems.map((p) => (
-                        <tr key={p.id} className="hover:bg-slate-900/40 transition-colors group">
+                        <tr key={p.id} className="hover:bg-ebay-bg-secondary/60 transition-colors group">
                           {/* Name & Code */}
                           <td className="py-4 px-4 font-medium">
-                            <Link href={`/project/${p.id}`} className="hover:text-indigo-300 flex flex-col gap-0.5">
-                              <span className="font-semibold text-slate-100 text-sm group-hover:text-cyan-300 transition-colors">
+                            <Link href={`/project/${p.id}`} className="flex flex-col gap-0.5">
+                              <span className="font-bold text-ebay-fg-primary text-sm group-hover:text-ebay-blue transition-colors">
                                 {p.name}
                               </span>
-                              <span className="text-[10px] font-mono text-slate-400">{p.code} • {p.program}</span>
+                              <span className="text-[10px] font-mono text-ebay-fg-secondary">{p.code} • {p.program}</span>
                             </Link>
                           </td>
 
                           {/* Regulation */}
                           <td className="py-4 px-4">
-                            <span className="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-indigo-950/80 text-indigo-300 border border-indigo-500/30">
+                            <span className="px-2.5 py-1 rounded-full text-[11px] font-semibold bg-ebay-blue/10 text-ebay-blue border border-ebay-blue/20">
                               {p.regulation}
                             </span>
                           </td>
 
                           {/* PM */}
-                          <td className="py-4 px-4 text-slate-300 font-medium">
+                          <td className="py-4 px-4 text-ebay-fg-primary font-medium">
                             <div className="flex items-center gap-1.5">
-                              <User className="w-3.5 h-3.5 text-slate-400" />
+                              <User className="w-3.5 h-3.5 text-ebay-fg-secondary" />
                               <span>{p.pm}</span>
                             </div>
                           </td>
 
                           {/* Phase */}
                           <td className="py-4 px-4">
-                            <span className="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-800 text-slate-300 border border-slate-700">
+                            <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono bg-ebay-bg-secondary text-ebay-fg-primary border border-ebay-border">
                               {p.phase}
                             </span>
                           </td>
@@ -377,36 +420,36 @@ export default function ProjectPortfolioPage() {
                           {/* BRD / PRD */}
                           <td className="py-4 px-4">
                             <div className="flex flex-col text-[10px] font-mono gap-0.5">
-                              <span className="text-slate-300">BRD: <strong className="text-emerald-400">{p.brdStatus}</strong></span>
-                              <span className="text-slate-400">PRD: <strong className="text-amber-400">{p.prdStatus}</strong></span>
+                              <span className="text-ebay-fg-secondary">BRD: <strong className="text-ebay-green">{p.brdStatus}</strong></span>
+                              <span className="text-ebay-fg-secondary">PRD: <strong className="text-ebay-amber">{p.prdStatus}</strong></span>
                             </div>
                           </td>
 
                           {/* Compliance Date */}
-                          <td className="py-4 px-4 text-slate-300 font-mono text-[11px]">
+                          <td className="py-4 px-4 text-ebay-fg-primary font-mono text-[11px]">
                             {p.complianceDate}
                           </td>
 
-                          {/* Days to enforcement color badge (§11.1) */}
+                          {/* Days to enforcement */}
                           <td className="py-4 px-4">{renderDaysBadge(p.daysToEnforcement)}</td>
 
                           {/* Compliance Score */}
                           <td className="py-4 px-4">
                             <div className="w-32 space-y-1">
                               <div className="flex justify-between text-[10px] font-bold">
-                                <span className="text-slate-300">Score</span>
-                                <span className={p.complianceScore >= 80 ? 'text-emerald-400' : p.complianceScore >= 60 ? 'text-amber-400' : 'text-rose-400'}>
+                                <span className="text-ebay-fg-secondary">Score</span>
+                                <span className={p.complianceScore >= 80 ? 'text-ebay-green' : p.complianceScore >= 60 ? 'text-ebay-amber' : 'text-ebay-red'}>
                                   {p.complianceScore}%
                                 </span>
                               </div>
-                              <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                              <div className="w-full h-1.5 bg-ebay-bg-secondary rounded-full overflow-hidden border border-ebay-border">
                                 <div
                                   className={`h-full rounded-full transition-all ${
                                     p.complianceScore >= 80
-                                      ? 'bg-gradient-to-r from-emerald-500 to-teal-400'
+                                      ? 'bg-ebay-green'
                                       : p.complianceScore >= 60
-                                      ? 'bg-gradient-to-r from-amber-500 to-yellow-400'
-                                      : 'bg-gradient-to-r from-rose-500 to-red-400'
+                                      ? 'bg-ebay-amber'
+                                      : 'bg-ebay-red'
                                   }`}
                                   style={{ width: `${p.complianceScore}%` }}
                                 />
@@ -414,13 +457,13 @@ export default function ProjectPortfolioPage() {
                             </div>
                           </td>
 
-                          {/* Quick actions per row (§11.1) */}
+                          {/* Quick actions */}
                           <td className="py-4 px-4 text-right">
-                            <div className="flex items-center justify-end gap-2">
+                            <div className="flex items-center justify-end gap-1.5">
                               <Link
                                 href={`/project/${p.id}`}
                                 title="Open Detail"
-                                className="p-1.5 rounded-lg bg-slate-800/80 hover:bg-indigo-600 text-slate-300 hover:text-white transition-colors"
+                                className="p-1.5 rounded-lg bg-ebay-bg-secondary hover:bg-ebay-blue text-ebay-fg-secondary hover:text-white transition-colors border border-ebay-border"
                               >
                                 <ExternalLink className="w-3.5 h-3.5" />
                               </Link>
@@ -428,7 +471,7 @@ export default function ProjectPortfolioPage() {
                               <button
                                 title="Flag Blocker"
                                 onClick={() => handleFlagBlocker(p.id, p.name)}
-                                className="p-1.5 rounded-lg bg-slate-800/80 hover:bg-rose-600 text-slate-300 hover:text-white transition-colors"
+                                className="p-1.5 rounded-lg bg-ebay-bg-secondary hover:bg-red-600 text-ebay-fg-secondary hover:text-white transition-colors border border-ebay-border"
                               >
                                 <ShieldAlert className="w-3.5 h-3.5" />
                               </button>
@@ -436,7 +479,7 @@ export default function ProjectPortfolioPage() {
                               <button
                                 title="Sync to Airtable"
                                 onClick={() => handleSyncAirtable(p.id, p.name)}
-                                className="p-1.5 rounded-lg bg-slate-800/80 hover:bg-cyan-600 text-slate-300 hover:text-white transition-colors"
+                                className="p-1.5 rounded-lg bg-ebay-bg-secondary hover:bg-ebay-blue text-ebay-fg-secondary hover:text-white transition-colors border border-ebay-border"
                               >
                                 <RefreshCw className="w-3.5 h-3.5" />
                               </button>
@@ -449,49 +492,49 @@ export default function ProjectPortfolioPage() {
                 </div>
               </div>
             ) : (
-              /* Grid View */
+              /* Grid View - eBay Evo Cards */
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {groupItems.map((p) => (
-                  <div key={p.id} className="glass-card rounded-2xl p-6 flex flex-col justify-between space-y-4">
+                  <div key={p.id} className="evo-card p-6 flex flex-col justify-between space-y-4 shadow-sm hover:shadow-md">
                     <div className="space-y-3">
                       <div className="flex items-start justify-between gap-2">
-                        <span className="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-indigo-950/80 text-indigo-300 border border-indigo-500/30">
+                        <span className="px-2.5 py-1 rounded-full text-[11px] font-semibold bg-ebay-blue/10 text-ebay-blue border border-ebay-blue/20">
                           {p.regulation}
                         </span>
                         {renderStatusBadge(p.status)}
                       </div>
 
                       <div>
-                        <Link href={`/project/${p.id}`} className="hover:underline">
-                          <h3 className="font-bold text-slate-100 text-base leading-snug hover:text-cyan-300 transition-colors">
+                        <Link href={`/project/${p.id}`}>
+                          <h3 className="font-bold text-ebay-fg-primary text-base leading-snug hover:text-ebay-blue transition-colors">
                             {p.name}
                           </h3>
                         </Link>
-                        <p className="text-slate-400 text-xs mt-1 line-clamp-2">{p.description}</p>
+                        <p className="text-ebay-fg-secondary text-xs mt-1 line-clamp-2">{p.description}</p>
                       </div>
                     </div>
 
-                    <div className="space-y-3 pt-3 border-t border-slate-800/80">
+                    <div className="space-y-3 pt-3 border-t border-ebay-border">
                       <div className="grid grid-cols-2 gap-2 text-xs">
                         <div>
-                          <span className="text-slate-500 text-[10px] uppercase font-semibold">PM Owner</span>
-                          <div className="font-medium text-slate-300">{p.pm}</div>
+                          <span className="text-ebay-fg-secondary text-[10px] uppercase font-semibold">PM Owner</span>
+                          <div className="font-medium text-ebay-fg-primary">{p.pm}</div>
                         </div>
                         <div>
-                          <span className="text-slate-500 text-[10px] uppercase font-semibold">Phase</span>
-                          <div className="font-medium text-slate-300">{p.phase}</div>
+                          <span className="text-ebay-fg-secondary text-[10px] uppercase font-semibold">Phase</span>
+                          <div className="font-medium text-ebay-fg-primary">{p.phase}</div>
                         </div>
                       </div>
 
                       <div className="flex items-center justify-between">
                         <div>
-                          <span className="text-slate-500 text-[10px] uppercase font-semibold block">Enforcement</span>
+                          <span className="text-ebay-fg-secondary text-[10px] uppercase font-semibold block">Enforcement</span>
                           {renderDaysBadge(p.daysToEnforcement)}
                         </div>
 
                         <div className="text-right">
-                          <span className="text-slate-500 text-[10px] uppercase font-semibold block">Compliance Score</span>
-                          <span className={`font-extrabold text-sm ${p.complianceScore >= 80 ? 'text-emerald-400' : 'text-amber-400'}`}>
+                          <span className="text-ebay-fg-secondary text-[10px] uppercase font-semibold block">Compliance Score</span>
+                          <span className={`font-extrabold text-sm ${p.complianceScore >= 80 ? 'text-ebay-green' : 'text-ebay-amber'}`}>
                             {p.complianceScore}%
                           </span>
                         </div>
@@ -501,13 +544,13 @@ export default function ProjectPortfolioPage() {
                       <div className="flex items-center gap-2 pt-2">
                         <Link
                           href={`/project/${p.id}`}
-                          className="flex-1 text-center py-2 rounded-xl text-xs font-semibold bg-indigo-600/30 text-indigo-200 border border-indigo-500/40 hover:bg-indigo-600 hover:text-white transition-all"
+                          className="flex-1 text-center py-2 rounded-full text-xs font-semibold bg-ebay-blue text-white shadow-sm hover:bg-blue-700 transition-all"
                         >
                           View Detail
                         </Link>
                         <button
                           onClick={() => handleSyncAirtable(p.id, p.name)}
-                          className="p-2 rounded-xl bg-slate-800/80 hover:bg-cyan-600 text-slate-300 hover:text-white transition-colors"
+                          className="p-2 rounded-full bg-ebay-bg-secondary hover:bg-ebay-blue text-ebay-fg-secondary hover:text-white transition-colors border border-ebay-border"
                           title="Sync to Airtable"
                         >
                           <RefreshCw className="w-4 h-4" />

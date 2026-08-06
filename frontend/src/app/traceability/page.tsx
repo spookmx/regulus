@@ -1,9 +1,10 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
+import Link from 'next/link';
 import { Navbar } from '@/components/Navbar';
 import { GRAPH_NODES, GRAPH_EDGES } from '@/lib/mockData';
-import { ArtifactNode, ArtifactEdge, RegulationType } from '@/lib/types';
+import { ArtifactNode, ArtifactEdge } from '@/lib/types';
 import {
   GitGraph,
   Filter,
@@ -11,12 +12,9 @@ import {
   ArrowRight,
   ShieldCheck,
   Search,
-  ZoomIn,
-  ZoomOut,
   RefreshCw,
-  X,
-  Layers,
   Sparkles,
+  ExternalLink,
 } from 'lucide-react';
 
 export default function TraceabilityPage() {
@@ -29,7 +27,7 @@ export default function TraceabilityPage() {
   const [selectedStatus, setSelectedStatus] = useState<string>('ALL');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
-  // Selected Node Inspection & Lineage Path Highlight (§11.3)
+  // Selected Node Inspection & Lineage Path Highlight
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>('lrd-101');
   const [highlightChain, setHighlightChain] = useState<string[]>([]);
 
@@ -50,11 +48,10 @@ export default function TraceabilityPage() {
     return nodes.find((n) => n.id === selectedNodeId) || null;
   }, [nodes, selectedNodeId]);
 
-  // Compute full upward and downward chain for selected node (§11.3)
+  // Compute full upward and downward chain for selected node
   const handleSelectNode = (nodeId: string) => {
     setSelectedNodeId(nodeId);
 
-    // BFS to find connected nodes upward & downward
     const connected = new Set<string>([nodeId]);
     let queue = [nodeId];
 
@@ -78,50 +75,50 @@ export default function TraceabilityPage() {
   const getTierColor = (tier: string) => {
     switch (tier) {
       case 'LRD':
-        return 'from-purple-600 to-indigo-600 border-purple-400 text-purple-200';
+        return 'bg-ebay-blue/10 text-ebay-blue border-ebay-blue/30';
       case 'BRD':
-        return 'from-blue-600 to-cyan-600 border-blue-400 text-cyan-200';
+        return 'bg-ebay-green-bg text-ebay-green border-green-500/30';
       case 'PRD':
-        return 'from-cyan-600 to-teal-600 border-cyan-400 text-teal-200';
+        return 'bg-ebay-amber-bg text-ebay-amber border-amber-500/30';
       case 'Sub-PRD':
-        return 'from-teal-600 to-emerald-600 border-emerald-400 text-emerald-200';
+        return 'bg-ebay-info-bg text-ebay-info border-blue-500/30';
       case 'Jira':
-        return 'from-amber-600 to-orange-600 border-amber-400 text-amber-200';
+        return 'bg-ebay-bg-secondary text-ebay-fg-primary border-ebay-border';
       default:
-        return 'from-slate-700 to-slate-800 border-slate-600 text-slate-200';
+        return 'bg-ebay-bg-secondary text-ebay-fg-secondary border-ebay-border';
     }
   };
 
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'Approved':
-        return 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40';
+        return 'bg-ebay-green-bg text-ebay-green border-green-500/20';
       case 'In Review':
-        return 'bg-amber-500/20 text-amber-300 border-amber-500/40';
+        return 'bg-ebay-amber-bg text-ebay-amber border-amber-500/20';
       case 'Implemented':
-        return 'bg-blue-500/20 text-blue-300 border-blue-500/40';
+        return 'bg-ebay-info-bg text-ebay-info border-blue-500/20';
       default:
-        return 'bg-slate-800 text-slate-300 border-slate-700';
+        return 'bg-ebay-bg-secondary text-ebay-fg-secondary border-ebay-border';
     }
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100">
+    <div className="min-h-screen flex flex-col bg-ebay-bg-primary text-ebay-fg-primary transition-colors duration-200">
       <Navbar />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 lg:px-8 py-8 space-y-6">
-        {/* Header */}
-        <div className="glass-panel p-6 rounded-2xl border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        {/* Header - eBay Evo Card */}
+        <div className="evo-card p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-sm">
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-2xl lg:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-100 to-cyan-300 bg-clip-text text-transparent">
+              <h1 className="text-2xl lg:text-3xl font-extrabold tracking-tight text-ebay-fg-primary">
                 Regulatory Traceability Graph
               </h1>
-              <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
-                §11.3 Visualizer
+              <span className="px-3 py-1 rounded-full text-xs font-semibold bg-ebay-blue/10 text-ebay-blue border border-ebay-blue/30">
+                Visualizer
               </span>
             </div>
-            <p className="text-slate-400 text-xs mt-1">
+            <p className="text-ebay-fg-secondary text-xs mt-1">
               Interactive lineage map connecting LRDs, BRDs, PRDs, Sub-PRDs, and Jira implementations with directional edges.
             </p>
           </div>
@@ -129,23 +126,23 @@ export default function TraceabilityPage() {
           <div className="flex items-center gap-3">
             <button
               onClick={() => setHighlightChain([])}
-              className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 transition-colors flex items-center gap-1.5"
+              className="px-4 py-2 rounded-full text-xs font-semibold bg-ebay-bg-secondary border border-ebay-border text-ebay-fg-primary hover:bg-ebay-bg-tertiary transition-colors flex items-center gap-1.5 shadow-sm"
             >
               <RefreshCw className="w-3.5 h-3.5" /> Reset View
             </button>
           </div>
         </div>
 
-        {/* Filter Controls */}
-        <div className="glass-panel p-4 rounded-2xl border border-slate-800 flex flex-wrap items-center justify-between gap-4">
+        {/* Filter Controls - eBay Evo Toolbar */}
+        <div className="evo-card p-4 flex flex-wrap items-center justify-between gap-4 shadow-sm">
           <div className="relative w-full sm:w-64">
-            <Search className="absolute left-3 top-2.5 w-4 h-4 text-slate-400" />
+            <Search className="absolute left-3 top-2.5 w-4 h-4 text-ebay-fg-secondary" />
             <input
               type="text"
               placeholder="Search graph nodes..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-slate-900 text-xs text-slate-200 pl-9 pr-3 py-2 rounded-xl border border-slate-700 focus:outline-none focus:border-cyan-500"
+              className="w-full bg-ebay-bg-primary text-xs text-ebay-fg-primary pl-9 pr-3 py-2 rounded-xl border border-ebay-border focus:outline-none focus:ring-2 focus:ring-ebay-blue"
             />
           </div>
 
@@ -154,7 +151,7 @@ export default function TraceabilityPage() {
               id="graph-project-filter"
               value={selectedProject}
               onChange={(e) => setSelectedProject(e.target.value)}
-              className="bg-slate-900 text-slate-200 px-3 py-2 rounded-xl border border-slate-700 focus:outline-none focus:border-cyan-500"
+              className="bg-ebay-bg-primary text-ebay-fg-primary px-3 py-2 rounded-xl border border-ebay-border focus:outline-none focus:ring-2 focus:ring-ebay-blue"
             >
               <option value="ALL">All Projects</option>
               <option value="prj-ecgt">ECGT Generative AI</option>
@@ -165,7 +162,7 @@ export default function TraceabilityPage() {
               id="graph-tier-filter"
               value={selectedTier}
               onChange={(e) => setSelectedTier(e.target.value)}
-              className="bg-slate-900 text-slate-200 px-3 py-2 rounded-xl border border-slate-700 focus:outline-none focus:border-cyan-500"
+              className="bg-ebay-bg-primary text-ebay-fg-primary px-3 py-2 rounded-xl border border-ebay-border focus:outline-none focus:ring-2 focus:ring-ebay-blue"
             >
               <option value="ALL">All Artifact Tiers</option>
               <option value="LRD">LRD</option>
@@ -179,7 +176,7 @@ export default function TraceabilityPage() {
               id="graph-status-filter"
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
-              className="bg-slate-900 text-slate-200 px-3 py-2 rounded-xl border border-slate-700 focus:outline-none focus:border-cyan-500"
+              className="bg-ebay-bg-primary text-ebay-fg-primary px-3 py-2 rounded-xl border border-ebay-border focus:outline-none focus:ring-2 focus:ring-ebay-blue"
             >
               <option value="ALL">All Statuses</option>
               <option value="Approved">Approved</option>
@@ -193,12 +190,12 @@ export default function TraceabilityPage() {
         {/* Main Canvas & Side Panel Split */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Visual Graph Canvas */}
-          <div className="lg:col-span-2 glass-panel p-6 rounded-2xl border border-slate-800 min-h-[500px] flex flex-col justify-between relative overflow-hidden">
+          <div className="lg:col-span-2 evo-card p-6 min-h-[500px] flex flex-col justify-between relative overflow-hidden shadow-sm">
             <div className="flex justify-between items-center z-10">
-              <span className="text-xs text-slate-400 font-mono flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-cyan-400" /> Click node to highlight full lineage chain (§11.3)
+              <span className="text-xs text-ebay-fg-secondary font-medium flex items-center gap-1.5">
+                <Sparkles className="w-3.5 h-3.5 text-ebay-blue" /> Click node to highlight full lineage chain
               </span>
-              <span className="text-xs font-bold text-cyan-300 bg-cyan-950 px-2.5 py-1 rounded-md border border-cyan-500/30">
+              <span className="text-xs font-semibold text-ebay-blue bg-ebay-blue/10 px-3 py-1 rounded-full border border-ebay-blue/20">
                 {filteredNodes.length} Nodes Active
               </span>
             </div>
@@ -214,39 +211,31 @@ export default function TraceabilityPage() {
                     key={node.id}
                     id={`graph-node-${node.id}`}
                     onClick={() => handleSelectNode(node.id)}
-                    className={`cursor-pointer glass-card p-5 rounded-2xl border transition-all space-y-3 ${
+                    className={`cursor-pointer evo-card p-5 border transition-all space-y-3 ${
                       isSelected
-                        ? 'border-cyan-400 ring-2 ring-cyan-500/50 scale-105 shadow-2xl shadow-cyan-500/20 bg-slate-900'
+                        ? 'border-ebay-blue ring-2 ring-ebay-blue/50 scale-105 shadow-md bg-ebay-bg-card'
                         : isHighlighted
-                        ? 'border-indigo-400 ring-1 ring-indigo-500/40 bg-slate-900/90'
-                        : 'border-slate-800 hover:border-slate-600'
+                        ? 'border-ebay-blue/70 ring-1 ring-ebay-blue/30 bg-ebay-bg-card'
+                        : 'border-ebay-border hover:border-ebay-border-strong'
                     }`}
                   >
                     <div className="flex items-center justify-between">
-                      <span
-                        className={`px-2.5 py-1 rounded-md text-[10px] font-mono font-bold bg-gradient-to-r ${getTierColor(
-                          node.tier
-                        )}`}
-                      >
+                      <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold border ${getTierColor(node.tier)}`}>
                         {node.tier}
                       </span>
-                      <span
-                        className={`px-2 py-0.5 rounded text-[10px] font-bold border ${getStatusBadge(
-                          node.status
-                        )}`}
-                      >
+                      <span className={`evo-badge ${getStatusBadge(node.status)}`}>
                         {node.status}
                       </span>
                     </div>
 
                     <div>
-                      <h4 className="font-bold text-xs text-slate-100 line-clamp-2">{node.title}</h4>
-                      <p className="text-[11px] text-slate-400 line-clamp-2 mt-1">{node.summary}</p>
+                      <h4 className="font-bold text-xs text-ebay-fg-primary line-clamp-2">{node.title}</h4>
+                      <p className="text-[11px] text-ebay-fg-secondary line-clamp-2 mt-1">{node.summary}</p>
                     </div>
 
-                    <div className="flex items-center justify-between text-[10px] pt-2 border-t border-slate-800 font-mono">
-                      <span className="text-slate-500">{node.version}</span>
-                      <span className="text-cyan-400 font-bold">{node.complianceScore}% Score</span>
+                    <div className="flex items-center justify-between text-[10px] pt-2 border-t border-ebay-border font-mono">
+                      <span className="text-ebay-fg-secondary">{node.version}</span>
+                      <span className="text-ebay-blue font-bold">{node.complianceScore}% Score</span>
                     </div>
                   </div>
                 );
@@ -254,77 +243,87 @@ export default function TraceabilityPage() {
             </div>
 
             {/* Edge relationship list badge legend */}
-            <div className="z-10 pt-4 border-t border-slate-800/80 flex flex-wrap gap-2 text-[10px] font-mono">
-              <span className="text-slate-500 font-bold uppercase">Relationship Edge Types:</span>
-              <span className="px-2 py-0.5 rounded bg-purple-950 text-purple-300 border border-purple-500/30">MANDATES</span>
-              <span className="px-2 py-0.5 rounded bg-indigo-950 text-indigo-300 border border-indigo-500/30">DERIVES_FROM</span>
-              <span className="px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-500/30">MAPS_TO</span>
-              <span className="px-2 py-0.5 rounded bg-teal-950 text-teal-300 border border-teal-500/30">IMPLEMENTS</span>
-              <span className="px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-500/30">DELIVERS</span>
+            <div className="z-10 pt-4 border-t border-ebay-border flex flex-wrap gap-2 text-[10px] font-mono">
+              <span className="text-ebay-fg-secondary font-bold uppercase">Relationship Edge Types:</span>
+              <span className="px-2 py-0.5 rounded-full bg-ebay-blue/10 text-ebay-blue border border-ebay-blue/20">MANDATES</span>
+              <span className="px-2 py-0.5 rounded-full bg-ebay-green-bg text-ebay-green border border-green-500/20">DERIVES_FROM</span>
+              <span className="px-2 py-0.5 rounded-full bg-ebay-amber-bg text-ebay-amber border border-amber-500/20">MAPS_TO</span>
+              <span className="px-2 py-0.5 rounded-full bg-ebay-info-bg text-ebay-info border border-blue-500/20">IMPLEMENTS</span>
+              <span className="px-2 py-0.5 rounded-full bg-ebay-bg-secondary text-ebay-fg-primary border border-ebay-border">DELIVERS</span>
             </div>
           </div>
 
-          {/* Node Inspection Side Panel (§11.3) */}
-          <div className="glass-panel p-6 rounded-2xl border border-slate-800 space-y-4">
-            <h3 className="font-bold text-slate-200 text-sm flex items-center gap-2 border-b border-slate-800 pb-3">
-              <Eye className="w-4 h-4 text-cyan-400" />
+          {/* Node Inspection Side Panel */}
+          <div className="evo-card p-6 space-y-4 shadow-sm">
+            <h3 className="font-bold text-ebay-fg-primary text-sm flex items-center gap-2 border-b border-ebay-border pb-3">
+              <Eye className="w-4 h-4 text-ebay-blue" />
               Node Inspection Panel
             </h3>
 
             {selectedNode ? (
               <div className="space-y-4 text-xs">
                 <div className="space-y-1">
-                  <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-indigo-950 text-indigo-300 border border-indigo-500/30">
+                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-ebay-blue/10 text-ebay-blue border border-ebay-blue/30">
                     {selectedNode.tier} • {selectedNode.version}
                   </span>
-                  <h4 className="font-bold text-slate-100 text-sm mt-1">{selectedNode.title}</h4>
+                  <h4 className="font-bold text-ebay-fg-primary text-sm mt-1">{selectedNode.title}</h4>
                 </div>
 
-                <div className="glass-card p-3 rounded-xl border border-slate-800 space-y-1 text-slate-300">
-                  <span className="text-[10px] font-bold text-cyan-400 uppercase">Context Summary</span>
+                <div className="bg-ebay-bg-secondary p-3 rounded-2xl border border-ebay-border space-y-1 text-ebay-fg-primary">
+                  <span className="text-[10px] font-bold text-ebay-blue uppercase">Context Summary</span>
                   <p>{selectedNode.summary}</p>
                 </div>
 
                 <div className="space-y-2 font-mono text-[11px]">
-                  <div className="flex justify-between py-1 border-b border-slate-800">
-                    <span className="text-slate-400">Owner</span>
-                    <span className="text-slate-200 font-semibold">{selectedNode.owner}</span>
+                  <div className="flex justify-between py-1 border-b border-ebay-border">
+                    <span className="text-ebay-fg-secondary">Owner</span>
+                    <span className="text-ebay-fg-primary font-semibold">{selectedNode.owner}</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-slate-800">
-                    <span className="text-slate-400">Status</span>
-                    <span className="text-emerald-400 font-semibold">{selectedNode.status}</span>
+                  <div className="flex justify-between py-1 border-b border-ebay-border">
+                    <span className="text-ebay-fg-secondary">Status</span>
+                    <span className="text-ebay-green font-semibold">{selectedNode.status}</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-slate-800">
-                    <span className="text-slate-400">Compliance Score</span>
-                    <span className="text-cyan-400 font-bold">{selectedNode.complianceScore}%</span>
+                  <div className="flex justify-between py-1 border-b border-ebay-border">
+                    <span className="text-ebay-fg-secondary">Compliance Score</span>
+                    <span className="text-ebay-blue font-bold">{selectedNode.complianceScore}%</span>
                   </div>
                   <div className="flex justify-between py-1">
-                    <span className="text-slate-400">Last Modified</span>
-                    <span className="text-slate-400">{selectedNode.lastUpdated}</span>
+                    <span className="text-ebay-fg-secondary">Last Modified</span>
+                    <span className="text-ebay-fg-secondary">{selectedNode.lastUpdated}</span>
                   </div>
                 </div>
 
                 {/* Upward / Downward Edge Relationships */}
-                <div className="space-y-2 pt-2 border-t border-slate-800">
-                  <span className="text-[10px] font-bold text-slate-400 uppercase block">Connected Lineage Edges</span>
+                <div className="space-y-2 pt-2 border-t border-ebay-border">
+                  <span className="text-[10px] font-bold text-ebay-fg-secondary uppercase block">Connected Lineage Edges</span>
                   {edges
                     .filter((e) => e.source === selectedNode.id || e.target === selectedNode.id)
                     .map((edge) => (
                       <div
                         key={edge.id}
-                        className="p-2 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-between text-[10px] font-mono"
+                        className="p-2 rounded-xl bg-ebay-bg-secondary border border-ebay-border flex items-center justify-between text-[10px] font-mono"
                       >
-                        <span className="text-indigo-300">{edge.source}</span>
-                        <span className="px-1.5 py-0.5 rounded bg-cyan-950 text-cyan-300 font-bold">
+                        <span className="text-ebay-fg-primary">{edge.source}</span>
+                        <span className="px-2 py-0.5 rounded-full bg-ebay-blue/10 text-ebay-blue font-bold">
                           {edge.label}
                         </span>
-                        <span className="text-indigo-300">{edge.target}</span>
+                        <span className="text-ebay-fg-primary">{edge.target}</span>
                       </div>
                     ))}
                 </div>
+
+                {/* Open Dedicated View Button */}
+                <div className="pt-2 border-t border-ebay-border">
+                  <Link
+                    href={`/artifact/${selectedNode.id}`}
+                    className="w-full py-2.5 rounded-full bg-ebay-blue hover:bg-blue-700 text-white font-semibold text-xs flex items-center justify-center gap-1.5 transition-colors shadow-sm"
+                  >
+                    <ExternalLink className="w-3.5 h-3.5" /> Open Dedicated Full View & Components
+                  </Link>
+                </div>
               </div>
             ) : (
-              <p className="text-xs text-slate-400">Select any node on the graph to inspect metadata and trace relationships.</p>
+              <p className="text-xs text-ebay-fg-secondary">Select any node on the graph to inspect metadata and trace relationships.</p>
             )}
           </div>
         </div>

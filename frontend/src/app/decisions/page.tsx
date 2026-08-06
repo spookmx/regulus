@@ -101,30 +101,30 @@ export default function DecisionsDashboardPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100">
+    <div className="min-h-screen flex flex-col bg-ebay-bg-primary text-ebay-fg-primary transition-colors duration-200">
       <Navbar />
 
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 glass-panel bg-purple-900/90 text-purple-100 px-4 py-3 rounded-xl border border-purple-400/40 shadow-2xl flex items-center gap-2 animate-bounce">
-          <Download className="w-5 h-5 text-purple-300" />
+        <div className="fixed bottom-6 right-6 z-50 bg-ebay-blue text-white px-4 py-3 rounded-2xl shadow-xl flex items-center gap-2.5 animate-bounce">
+          <Download className="w-5 h-5 text-white" />
           <span className="text-xs font-semibold">{toastMessage}</span>
         </div>
       )}
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 lg:px-8 py-8 space-y-6">
-        {/* Header */}
-        <div className="glass-panel p-6 rounded-2xl border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        {/* Header - eBay Evo Card */}
+        <div className="evo-card p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-sm">
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-2xl lg:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-100 to-purple-300 bg-clip-text text-transparent">
+              <h1 className="text-2xl lg:text-3xl font-extrabold tracking-tight text-ebay-fg-primary">
                 Cross-Project Decisions Dashboard
               </h1>
-              <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30">
-                §11.5 Governance Ledger
+              <span className="px-3 py-1 rounded-full text-xs font-semibold bg-ebay-blue/10 text-ebay-blue border border-ebay-blue/30">
+                Governance Ledger
               </span>
             </div>
-            <p className="text-slate-400 text-xs mt-1">
+            <p className="text-ebay-fg-secondary text-xs mt-1">
               Centralized decision ledger across EU AI Act, DORA, ESG, MiCA, and GDPR projects with exportable legal review packages.
             </p>
           </div>
@@ -132,22 +132,22 @@ export default function DecisionsDashboardPage() {
           <button
             id="export-csv-btn"
             onClick={exportCSV}
-            className="px-4 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-600/20 hover:scale-105 transition-all flex items-center gap-2"
+            className="px-5 py-2.5 rounded-full text-xs font-semibold bg-ebay-blue text-white shadow-sm hover:bg-blue-700 transition-all flex items-center gap-2"
           >
             <Download className="w-4 h-4" /> Export Legal Review CSV Pack
           </button>
         </div>
 
-        {/* Filters Toolbar */}
-        <div className="glass-panel p-4 rounded-2xl border border-slate-800 flex flex-col lg:flex-row gap-4 justify-between items-start lg:items-center">
+        {/* Filters Toolbar - eBay Evo Control Bar */}
+        <div className="evo-card p-4 flex flex-col lg:flex-row gap-4 justify-between items-start lg:items-center shadow-sm">
           <div className="relative w-full lg:w-72">
-            <Search className="absolute left-3 top-2.5 w-4 h-4 text-slate-400" />
+            <Search className="absolute left-3 top-2.5 w-4 h-4 text-ebay-fg-secondary" />
             <input
               type="text"
               placeholder="Search decisions, rationale..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-slate-900 text-xs text-slate-200 pl-9 pr-3 py-2 rounded-xl border border-slate-700 focus:outline-none focus:border-purple-500"
+              className="w-full bg-ebay-bg-primary text-xs text-ebay-fg-primary pl-9 pr-3 py-2 rounded-xl border border-ebay-border focus:outline-none focus:ring-2 focus:ring-ebay-blue"
             />
           </div>
 
@@ -156,7 +156,7 @@ export default function DecisionsDashboardPage() {
               id="decision-project-filter"
               value={selectedProject}
               onChange={(e) => setSelectedProject(e.target.value)}
-              className="bg-slate-900 text-slate-200 px-3 py-2 rounded-xl border border-slate-700 focus:outline-none focus:border-purple-500"
+              className="bg-ebay-bg-primary text-ebay-fg-primary px-3 py-2 rounded-xl border border-ebay-border focus:outline-none focus:ring-2 focus:ring-ebay-blue"
             >
               <option value="ALL">All Projects</option>
               <option value="prj-ecgt">ECGT Generative AI</option>
@@ -168,7 +168,7 @@ export default function DecisionsDashboardPage() {
               id="decision-regulation-filter"
               value={selectedRegulation}
               onChange={(e) => setSelectedRegulation(e.target.value)}
-              className="bg-slate-900 text-slate-200 px-3 py-2 rounded-xl border border-slate-700 focus:outline-none focus:border-purple-500"
+              className="bg-ebay-bg-primary text-ebay-fg-primary px-3 py-2 rounded-xl border border-ebay-border focus:outline-none focus:ring-2 focus:ring-ebay-blue"
             >
               <option value="ALL">All Regulations</option>
               <option value="EU AI Act">EU AI Act</option>
@@ -180,7 +180,7 @@ export default function DecisionsDashboardPage() {
               id="decision-status-filter"
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
-              className="bg-slate-900 text-slate-200 px-3 py-2 rounded-xl border border-slate-700 focus:outline-none focus:border-purple-500"
+              className="bg-ebay-bg-primary text-ebay-fg-primary px-3 py-2 rounded-xl border border-ebay-border focus:outline-none focus:ring-2 focus:ring-ebay-blue"
             >
               <option value="ALL">All Statuses</option>
               <option value="Signed Off">Signed Off</option>
@@ -188,20 +188,20 @@ export default function DecisionsDashboardPage() {
               <option value="Proposed">Proposed</option>
             </select>
 
-            <div className="flex items-center gap-1.5 bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-700">
-              <Layers className="w-3.5 h-3.5 text-purple-400" />
-              <span className="text-slate-400">Group by:</span>
+            <div className="flex items-center gap-1.5 bg-ebay-bg-secondary px-3 py-1.5 rounded-xl border border-ebay-border">
+              <Layers className="w-3.5 h-3.5 text-ebay-blue" />
+              <span className="text-ebay-fg-secondary">Group by:</span>
               <select
                 id="decision-group-by"
                 value={groupBy}
                 onChange={(e) => setGroupBy(e.target.value as any)}
-                className="bg-transparent text-purple-300 font-medium focus:outline-none cursor-pointer"
+                className="bg-transparent text-ebay-blue font-semibold focus:outline-none cursor-pointer"
               >
-                <option value="none" className="bg-slate-900 text-slate-200">None</option>
-                <option value="project" className="bg-slate-900 text-slate-200">Project</option>
-                <option value="regulation" className="bg-slate-900 text-slate-200">Regulation</option>
-                <option value="status" className="bg-slate-900 text-slate-200">Status</option>
-                <option value="forum" className="bg-slate-900 text-slate-200">Forum</option>
+                <option value="none">None</option>
+                <option value="project">Project</option>
+                <option value="regulation">Regulation</option>
+                <option value="status">Status</option>
+                <option value="forum">Forum</option>
               </select>
             </div>
           </div>
@@ -211,9 +211,9 @@ export default function DecisionsDashboardPage() {
         {Object.entries(groupedDecisions).map(([groupTitle, groupItems]) => (
           <div key={groupTitle} className="space-y-4">
             {groupBy !== 'none' && (
-              <div className="flex items-center gap-3 border-b border-slate-800 pb-2">
-                <span className="text-base font-bold text-slate-200">{groupTitle}</span>
-                <span className="px-2 py-0.5 rounded-full text-xs font-mono bg-slate-800 text-slate-400">
+              <div className="flex items-center gap-3 border-b border-ebay-border pb-2">
+                <span className="text-base font-bold text-ebay-fg-primary">{groupTitle}</span>
+                <span className="px-2.5 py-0.5 rounded-full text-xs font-mono bg-ebay-bg-secondary text-ebay-fg-secondary border border-ebay-border">
                   {groupItems.length} decision(s)
                 </span>
               </div>
@@ -223,26 +223,26 @@ export default function DecisionsDashboardPage() {
               {groupItems.map((dec) => (
                 <div
                   key={dec.id}
-                  className="glass-panel p-6 rounded-2xl border border-slate-800 space-y-4 shadow-lg hover:border-purple-500/40 transition-all"
+                  className="evo-card p-6 space-y-4 shadow-sm hover:shadow-md border border-ebay-border transition-all"
                 >
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-ebay-border pb-3">
                     <div className="flex items-center gap-2">
-                      <span className="px-2.5 py-0.5 rounded-md text-[11px] font-semibold bg-indigo-950 text-indigo-300 border border-indigo-500/30">
+                      <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-ebay-blue/10 text-ebay-blue border border-ebay-blue/20">
                         {dec.regulation}
                       </span>
-                      <span className="px-2.5 py-0.5 rounded-md text-[11px] font-mono bg-purple-950 text-purple-300 border border-purple-500/30">
+                      <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono bg-ebay-bg-secondary text-ebay-fg-primary border border-ebay-border">
                         {dec.type}
                       </span>
-                      <span className="text-xs text-slate-400 font-medium hidden md:inline">
-                        Project: <strong className="text-slate-200">{dec.projectName}</strong>
+                      <span className="text-xs text-ebay-fg-secondary font-medium hidden md:inline">
+                        Project: <strong className="text-ebay-fg-primary">{dec.projectName}</strong>
                       </span>
                     </div>
 
                     <span
-                      className={`px-3 py-1 rounded-full text-xs font-bold ${
+                      className={`evo-badge ${
                         dec.status === 'Signed Off'
-                          ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
-                          : 'bg-amber-500/20 text-amber-300 border border-amber-500/40'
+                          ? 'bg-ebay-green-bg text-ebay-green border border-green-500/20'
+                          : 'bg-ebay-amber-bg text-ebay-amber border border-amber-500/20'
                       }`}
                     >
                       {dec.status}
@@ -250,17 +250,17 @@ export default function DecisionsDashboardPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <h3 className="font-bold text-slate-100 text-base">{dec.title}</h3>
-                    <p className="text-slate-300 text-xs bg-slate-900/60 p-4 rounded-xl border border-slate-800 leading-relaxed">
-                      <strong className="text-purple-400 block mb-1">Decision Rationale & Legal Justification:</strong>
+                    <h3 className="font-bold text-ebay-fg-primary text-base">{dec.title}</h3>
+                    <p className="text-ebay-fg-primary text-xs bg-ebay-bg-secondary p-4 rounded-xl border border-ebay-border leading-relaxed">
+                      <strong className="text-ebay-blue block mb-1">Decision Rationale & Legal Justification:</strong>
                       {dec.rationale}
                     </p>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-slate-400 font-mono pt-1">
-                    <div>Decision Maker: <span className="text-slate-200 font-semibold">{dec.decisionMaker}</span></div>
-                    <div>Forum: <span className="text-cyan-300 font-semibold">{dec.forum}</span></div>
-                    <div>Date Signed: <span className="text-slate-400">{dec.date}</span></div>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-ebay-fg-secondary font-mono pt-1">
+                    <div>Decision Maker: <span className="text-ebay-fg-primary font-semibold">{dec.decisionMaker}</span></div>
+                    <div>Forum: <span className="text-ebay-blue font-semibold">{dec.forum}</span></div>
+                    <div>Date Signed: <span className="text-ebay-fg-secondary">{dec.date}</span></div>
                   </div>
                 </div>
               ))}

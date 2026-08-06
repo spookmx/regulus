@@ -77,7 +77,7 @@ test.describe('Regulus MVP E2E Suite', () => {
     await node101.click();
 
     // Verify side panel updates
-    await expect(page.getByText('EU AI Act Art. 14')).toBeVisible();
+    await expect(page.getByText('EU AI Act Art. 14').first()).toBeVisible();
   });
 
   test('5. Decisions dashboard ledger and CSV export', async ({ page }) => {
