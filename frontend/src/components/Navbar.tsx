@@ -44,7 +44,7 @@ export function Navbar({ pendingActionCount = 6 }: { pendingActionCount?: number
   return (
     <header className="sticky top-0 z-50 bg-ebay-bg-primary border-b border-ebay-border px-4 lg:px-8 py-3 transition-colors duration-200 shadow-sm">
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
-        {/* Brand & Logo - eBay Evo Style */}
+        {/* Brand & Logo */}
         <Link href="/" className="flex items-center gap-3 group">
           <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-ebay-blue text-white shadow-sm group-hover:scale-105 transition-transform">
             <ShieldCheck className="w-5 h-5 text-white group-hover:rotate-6 transition-transform" />
@@ -53,9 +53,6 @@ export function Navbar({ pendingActionCount = 6 }: { pendingActionCount?: number
             <div className="flex items-center gap-2">
               <span className="font-extrabold text-xl tracking-tight text-ebay-fg-primary">
                 REGULUS
-              </span>
-              <span className="text-[10px] uppercase font-bold tracking-widest px-2 py-0.5 rounded-full bg-ebay-blue/10 border border-ebay-blue/30 text-ebay-blue">
-                eBay Evo
               </span>
             </div>
             <p className="text-[11px] text-ebay-fg-secondary hidden sm:block font-medium">
@@ -130,11 +127,12 @@ export function Navbar({ pendingActionCount = 6 }: { pendingActionCount?: number
             title={`Switch to ${theme === 'light' ? 'Dark' : 'Light'} Mode`}
           >
             {theme === 'light' ? (
-              <Moon className="w-4 h-4 text-slate-700" />
+              <Moon className="w-4 h-4 text-ebay-fg-primary" />
             ) : (
               <Sun className="w-4 h-4 text-amber-400" />
             )}
           </button>
+
 
           {/* User RBAC Selector */}
           <div className="relative">

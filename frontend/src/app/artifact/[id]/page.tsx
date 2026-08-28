@@ -9,25 +9,19 @@ import { useAuth } from '@/context/AuthContext';
 import {
   FileText,
   Star,
-  Share2,
-  Download,
   Save,
   Plus,
   Filter,
   CheckCircle2,
-  AlertCircle,
   HelpCircle,
   ShieldCheck,
   ArrowLeft,
   Search,
-  ExternalLink,
   Layers,
   Sparkles,
   UserCheck,
-  Calendar,
   Globe,
   Tag,
-  MessageSquare,
   Edit3,
   Check,
   X,
@@ -87,12 +81,12 @@ export default function DedicatedArtifactPage() {
   const [isFavorited, setIsFavorited] = useState<boolean>(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  // Active Component View
+  // Active View Tab Navigation
   const [activeTab, setActiveTab] = useState<
-    'overview' | 'obligations' | 'questions' | 'approvals' | 'lineage' | 'schema' | 'audit'
+    'overview' | 'obligations' | 'questions' | 'approvals' | 'lineage' | 'audit'
   >('overview');
 
-  // In-Page Inline Editing States (No Popups!)
+  // In-Page Inline Editing States
   const [isEditingOverview, setIsEditingOverview] = useState<boolean>(false);
   const [editingObligationId, setEditingObligationId] = useState<string | null>(null);
   const [editingQuestionId, setEditingQuestionId] = useState<string | null>(null);
@@ -322,7 +316,7 @@ export default function DedicatedArtifactPage() {
     const auditEntry = createAuditEntry(
       'Obligation',
       'Created',
-      `Created Obligation ${createdObligation.id} (${createdObligation.article})`,
+      `Created Obligation ${createdObligation.article}`,
       [{ field: 'article', oldValue: 'N/A', newValue: createdObligation.article }]
     );
 
@@ -339,7 +333,7 @@ export default function DedicatedArtifactPage() {
     setShowAddObligationInline(false);
     setNewObligation({ article: '', text: '', type: 'Display', affected_surface: [], notes: '' });
     setNewSurfaceInput('');
-    showToast(`Added Obligation ${createdObligation.id}`);
+    showToast(`Added Obligation (${createdObligation.article})`);
   };
 
   // Start Inline Editing an Obligation
@@ -363,7 +357,7 @@ export default function DedicatedArtifactPage() {
     }
 
     const updatedObligation: Obligation = {
-      ...original,
+      ...original!,
       ...obligationEditForm,
       id: editingObligationId,
       article: obligationEditForm.article,
@@ -375,7 +369,7 @@ export default function DedicatedArtifactPage() {
     const auditEntry = createAuditEntry(
       'Obligation',
       'Edited',
-      `In-page edit: Updated Obligation ${updatedObligation.id} (${updatedObligation.article})`,
+      `In-page edit: Updated Obligation ${updatedObligation.article}`,
       changes.length > 0 ? changes : undefined
     );
 
@@ -390,17 +384,17 @@ export default function DedicatedArtifactPage() {
     }));
 
     setEditingObligationId(null);
-    showToast(`Saved Obligation ${editingObligationId}`);
+    showToast(`Saved Obligation (${updatedObligation.article})`);
   };
 
   // Delete Obligation
-  const handleDeleteObligation = (id: string) => {
-    if (!confirm(`Delete Obligation ${id}?`)) return;
+  const handleDeleteObligation = (id: string, articleName: string) => {
+    if (!confirm(`Delete Obligation (${articleName})?`)) return;
 
     const auditEntry = createAuditEntry(
       'Obligation',
       'Deleted',
-      `In-page action: Deleted Obligation ${id}`
+      `In-page action: Deleted Obligation (${articleName})`
     );
 
     setLrdDoc((prev) => ({
@@ -413,7 +407,7 @@ export default function DedicatedArtifactPage() {
       audit_log: [auditEntry, ...(prev.audit_log || [])],
     }));
 
-    showToast(`Deleted Obligation ${id}`);
+    showToast(`Deleted Obligation (${articleName})`);
   };
 
   // Start Inline Editing a Question
@@ -450,7 +444,7 @@ export default function DedicatedArtifactPage() {
     const auditEntry = createAuditEntry(
       'Open Question',
       questionEditForm.status === 'Resolved' ? 'Resolved' : 'Edited',
-      `In-page edit: Updated Question ${updatedQuestion.id} status to "${updatedQuestion.status}"`,
+      `In-page edit: Updated Question status to "${updatedQuestion.status}"`,
       changes.length > 0 ? changes : undefined
     );
 
@@ -465,7 +459,7 @@ export default function DedicatedArtifactPage() {
     }));
 
     setEditingQuestionId(null);
-    showToast(`Saved Question ${editingQuestionId}`);
+    showToast('Saved Question interpretation');
   };
 
   // Inline Add Question
@@ -489,7 +483,7 @@ export default function DedicatedArtifactPage() {
     const auditEntry = createAuditEntry(
       'Open Question',
       'Created',
-      `In-page action: Raised Open Question ${createdQuestion.id}`,
+      `In-page action: Raised Open Question`,
       [{ field: 'question', oldValue: 'N/A', newValue: createdQuestion.question }]
     );
 
@@ -505,7 +499,7 @@ export default function DedicatedArtifactPage() {
 
     setShowAddQuestionInline(false);
     setNewQuestion({ question: '', asked_by_name: user?.name || 'Elena Rostova', asked_by_role: 'Legal Counsel', linked_obligation_id: '' });
-    showToast(`Added Question ${createdQuestion.id}`);
+    showToast('Added Open Question');
   };
 
   // Handle Add Approval
@@ -567,7 +561,7 @@ export default function DedicatedArtifactPage() {
       {/* Top Workspace Header Bar */}
       <header className="border-b border-ebay-border bg-ebay-bg-primary sticky top-0 z-30 shadow-xs">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 py-4 space-y-3">
-          {/* Breadcrumb & Quick Actions */}
+          {/* Breadcrumb & Quick Favorite Action */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 text-xs text-ebay-fg-secondary">
               <button
@@ -577,7 +571,7 @@ export default function DedicatedArtifactPage() {
                 <ArrowLeft className="w-3.5 h-3.5" /> Back
               </button>
               <span>/</span>
-              <span className="font-mono text-ebay-blue">artifact</span>
+              <span className="font-mono text-ebay-blue">artifacts</span>
               <span>/</span>
               <span className="font-mono text-ebay-fg-primary">{lrdDoc.id}</span>
             </div>
@@ -595,32 +589,6 @@ export default function DedicatedArtifactPage() {
                 <Star className={`w-3.5 h-3.5 ${isFavorited ? 'fill-amber-400 text-amber-400' : ''}`} />
                 <span>{isFavorited ? 'Favorited' : 'Favorite'}</span>
               </button>
-
-              <button
-                onClick={() => {
-                  navigator.clipboard.writeText(window.location.href);
-                  showToast('Direct Deep URL copied to clipboard!');
-                }}
-                className="px-3 py-1.5 rounded-full text-xs font-semibold bg-ebay-bg-secondary text-ebay-fg-primary hover:bg-ebay-bg-tertiary border border-ebay-border flex items-center gap-1.5 transition-colors"
-              >
-                <Share2 className="w-3.5 h-3.5 text-ebay-blue" /> Share Deep Link
-              </button>
-
-              <button
-                onClick={() => {
-                  const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(lrdDoc, null, 2));
-                  const downloadAnchor = document.createElement('a');
-                  downloadAnchor.setAttribute('href', dataStr);
-                  downloadAnchor.setAttribute('download', `${lrdDoc.id}.json`);
-                  document.body.appendChild(downloadAnchor);
-                  downloadAnchor.click();
-                  downloadAnchor.remove();
-                  showToast('Exported artifact JSON');
-                }}
-                className="px-3 py-1.5 rounded-full text-xs font-semibold bg-ebay-bg-secondary text-ebay-fg-primary hover:bg-ebay-bg-tertiary border border-ebay-border flex items-center gap-1.5 transition-colors"
-              >
-                <Download className="w-3.5 h-3.5 text-ebay-green" /> Export JSON
-              </button>
             </div>
           </div>
 
@@ -637,7 +605,6 @@ export default function DedicatedArtifactPage() {
                 <span className="px-2.5 py-0.5 rounded-full text-xs font-mono text-ebay-green bg-ebay-green-bg border border-green-500/30">
                   {lrdDoc.status}
                 </span>
-                <span className="text-xs font-mono text-ebay-fg-secondary">{lrdDoc.urn}</span>
               </div>
               <h1 className="text-xl lg:text-2xl font-extrabold text-ebay-fg-primary tracking-tight">{lrdDoc.title}</h1>
             </div>
@@ -656,10 +623,119 @@ export default function DedicatedArtifactPage() {
         </div>
       </header>
 
-      {/* Main 2-Column Workspace: Left Content (3 cols), Right Sidebar Menu (1 col) */}
+      {/* Main Workspace Layout: Left Sidebar Navigation Menu (1 col), Right Content Workspace (3 cols) */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 lg:px-8 py-6">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
-          {/* LEFT / MAIN WORKSPACE COLUMN (3 cols) */}
+          
+          {/* LEFT-HAND SIDEBAR NAVIGATION MENU (1 col) */}
+          <div className="lg:col-span-1 space-y-4 sticky top-24">
+            <div className="evo-card p-4 space-y-3 shadow-sm">
+              <h3 className="text-xs uppercase font-extrabold tracking-wider text-ebay-fg-secondary border-b border-ebay-border pb-2 flex items-center justify-between">
+                <span>Menu</span>
+                <span className="text-[10px] text-ebay-blue font-mono font-bold">LRD</span>
+              </h3>
+
+              <nav className="space-y-1 text-xs">
+                <button
+                  onClick={() => setActiveTab('overview')}
+                  className={`w-full p-2.5 rounded-xl font-semibold flex items-center justify-between transition-all ${
+                    activeTab === 'overview'
+                      ? 'bg-ebay-blue text-white shadow-sm font-bold'
+                      : 'text-ebay-fg-secondary hover:text-ebay-fg-primary hover:bg-ebay-bg-secondary'
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    <FileText className="w-4 h-4" />
+                    <span>Overview Context</span>
+                  </div>
+                </button>
+
+                <button
+                  onClick={() => setActiveTab('obligations')}
+                  className={`w-full p-2.5 rounded-xl font-semibold flex items-center justify-between transition-all ${
+                    activeTab === 'obligations'
+                      ? 'bg-ebay-blue text-white shadow-sm font-bold'
+                      : 'text-ebay-fg-secondary hover:text-ebay-fg-primary hover:bg-ebay-bg-secondary'
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    <ShieldCheck className="w-4 h-4" />
+                    <span>Obligations</span>
+                  </div>
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-ebay-bg-secondary text-ebay-blue border border-ebay-border">
+                    {lrdDoc.sections.obligations.length}
+                  </span>
+                </button>
+
+                <button
+                  onClick={() => setActiveTab('questions')}
+                  className={`w-full p-2.5 rounded-xl font-semibold flex items-center justify-between transition-all ${
+                    activeTab === 'questions'
+                      ? 'bg-ebay-blue text-white shadow-sm font-bold'
+                      : 'text-ebay-fg-secondary hover:text-ebay-fg-primary hover:bg-ebay-bg-secondary'
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    <HelpCircle className="w-4 h-4" />
+                    <span>Open Questions</span>
+                  </div>
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-ebay-amber-bg text-ebay-amber border border-amber-500/20">
+                    {lrdDoc.sections.open_legal_questions.length}
+                  </span>
+                </button>
+
+                <button
+                  onClick={() => setActiveTab('approvals')}
+                  className={`w-full p-2.5 rounded-xl font-semibold flex items-center justify-between transition-all ${
+                    activeTab === 'approvals'
+                      ? 'bg-ebay-blue text-white shadow-sm font-bold'
+                      : 'text-ebay-fg-secondary hover:text-ebay-fg-primary hover:bg-ebay-bg-secondary'
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    <UserCheck className="w-4 h-4" />
+                    <span>Approvals</span>
+                  </div>
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-ebay-green-bg text-ebay-green border border-green-500/20">
+                    {lrdDoc.approvals.length}
+                  </span>
+                </button>
+
+                <button
+                  onClick={() => setActiveTab('lineage')}
+                  className={`w-full p-2.5 rounded-xl font-semibold flex items-center justify-between transition-all ${
+                    activeTab === 'lineage'
+                      ? 'bg-ebay-blue text-white shadow-sm font-bold'
+                      : 'text-ebay-fg-secondary hover:text-ebay-fg-primary hover:bg-ebay-bg-secondary'
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    <Layers className="w-4 h-4" />
+                    <span>Lineage Graph</span>
+                  </div>
+                </button>
+
+                <button
+                  onClick={() => setActiveTab('audit')}
+                  className={`w-full p-2.5 rounded-xl font-semibold flex items-center justify-between transition-all ${
+                    activeTab === 'audit'
+                      ? 'bg-ebay-blue text-white shadow-sm font-bold'
+                      : 'text-ebay-fg-secondary hover:text-ebay-fg-primary hover:bg-ebay-bg-secondary'
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    <History className="w-4 h-4" />
+                    <span>Activity Log</span>
+                  </div>
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-ebay-amber-bg text-ebay-amber border border-amber-500/20">
+                    {lrdDoc.audit_log?.length || 0}
+                  </span>
+                </button>
+              </nav>
+            </div>
+          </div>
+
+          {/* RIGHT / MAIN WORKSPACE CONTENT COLUMN (3 cols) */}
           <div className="lg:col-span-3 space-y-6">
 
             {/* TAB 1: OVERVIEW & CONTEXT */}
@@ -694,7 +770,7 @@ export default function DedicatedArtifactPage() {
                         }`}
                       >
                         <Edit3 className="w-3.5 h-3.5" />
-                        <span>{isEditingOverview ? 'Cancel In-Page Edit' : 'Edit In Place'}</span>
+                        <span>{isEditingOverview ? 'Cancel Edit' : 'Edit Overview'}</span>
                       </button>
                     )}
                   </div>
@@ -799,7 +875,7 @@ export default function DedicatedArtifactPage() {
                           type="submit"
                           className="px-5 py-2 rounded-full bg-ebay-blue text-white font-bold hover:bg-blue-700 shadow-sm flex items-center gap-1.5"
                         >
-                          <Save className="w-3.5 h-3.5" /> Save Section Overview
+                          <Save className="w-3.5 h-3.5" /> Save Overview
                         </button>
                       </div>
                     </form>
@@ -906,8 +982,7 @@ export default function DedicatedArtifactPage() {
                       onClick={() => setShowAddObligationInline(!showAddObligationInline)}
                       className="px-4 py-2 rounded-full text-xs font-bold bg-ebay-blue text-white hover:bg-blue-700 transition-colors flex items-center gap-1.5 self-end md:self-auto shadow-sm"
                     >
-                      <Plus className="w-3.5 h-3.5" />
-                      <span>{showAddObligationInline ? 'Close Form' : '+ Add Obligation Entry'}</span>
+                      <span>{showAddObligationInline ? 'Cancel' : 'Add Obligation'}</span>
                     </button>
                   )}
                 </div>
@@ -916,7 +991,7 @@ export default function DedicatedArtifactPage() {
                 {showAddObligationInline && (
                   <form onSubmit={handleAddObligationInline} className="evo-card p-5 space-y-3 bg-ebay-bg-secondary text-xs animate-fadeIn shadow-sm">
                     <h4 className="font-bold text-ebay-fg-primary text-sm flex items-center gap-2 border-b border-ebay-border pb-2">
-                      <Plus className="w-4 h-4 text-ebay-blue" /> Create New Obligation Entry
+                      New Obligation Entry
                     </h4>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                       <div>
@@ -981,7 +1056,7 @@ export default function DedicatedArtifactPage() {
                         type="submit"
                         className="px-4 py-2 rounded-full bg-ebay-blue text-white font-bold hover:bg-blue-700 shadow-sm"
                       >
-                        Save Obligation Entry
+                        Save
                       </button>
                     </div>
                   </form>
@@ -1006,41 +1081,36 @@ export default function DedicatedArtifactPage() {
                           {/* Obligation Header Bar */}
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
-                              <span className="px-2.5 py-0.5 rounded text-xs font-mono font-bold bg-indigo-950 text-indigo-300 border border-indigo-500/30">
+                              <span className="px-2.5 py-0.5 rounded text-xs font-mono font-bold bg-ebay-blue/10 text-ebay-blue border border-ebay-blue/30">
                                 {obl.article}
                               </span>
                               <span
                                 className={`px-2.5 py-0.5 rounded text-xs font-bold font-mono border ${
                                   obl.type === 'Prohibition'
-                                    ? 'bg-rose-950 text-rose-300 border-rose-500/40'
+                                    ? 'bg-ebay-red-bg text-ebay-red border-red-500/40'
                                     : obl.type === 'Display'
-                                    ? 'bg-purple-950 text-purple-300 border-purple-500/40'
+                                    ? 'bg-ebay-blue/10 text-ebay-blue border-ebay-blue/40'
                                     : obl.type === 'Disclosure'
-                                    ? 'bg-cyan-950 text-cyan-300 border-cyan-500/40'
-                                    : 'bg-emerald-950 text-emerald-300 border-emerald-500/40'
+                                    ? 'bg-ebay-info-bg text-ebay-info border-ebay-info/40'
+                                    : 'bg-ebay-green-bg text-ebay-green border-green-500/40'
                                 }`}
                               >
                                 {obl.type}
                               </span>
-                              <span className="text-[10px] font-mono text-slate-500">{obl.id}</span>
                             </div>
 
-                            {canWriteLRD && (
+                            {canWriteLRD && editingObligationId !== obl.id && (
                               <div className="flex items-center gap-2">
                                 <button
                                   onClick={() => handleStartEditObligation(obl)}
-                                  className={`px-2.5 py-1 rounded-lg text-xs font-medium border transition-colors flex items-center gap-1 ${
-                                    editingObligationId === obl.id
-                                      ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
-                                      : 'bg-slate-800 hover:bg-indigo-600 text-slate-300 hover:text-white border-slate-700'
-                                  }`}
+                                  className="px-3 py-1 rounded-full text-xs font-semibold bg-ebay-bg-secondary hover:bg-ebay-bg-tertiary text-ebay-fg-primary border border-ebay-border transition-colors flex items-center gap-1"
                                 >
                                   <Edit3 className="w-3 h-3" />
-                                  <span>{editingObligationId === obl.id ? 'Cancel' : 'Edit In Place'}</span>
+                                  <span>Edit</span>
                                 </button>
                                 <button
-                                  onClick={() => handleDeleteObligation(obl.id)}
-                                  className="px-2.5 py-1 rounded-lg text-xs font-medium bg-rose-950/40 hover:bg-rose-600 text-rose-300 hover:text-white border border-rose-500/30 transition-colors flex items-center gap-1"
+                                  onClick={() => handleDeleteObligation(obl.id, obl.article)}
+                                  className="px-3 py-1 rounded-full text-xs font-semibold bg-ebay-red-bg hover:bg-red-600/20 text-ebay-red border border-red-500/30 transition-colors flex items-center gap-1"
                                 >
                                   <Trash2 className="w-3 h-3" /> Delete
                                 </button>
@@ -1051,24 +1121,24 @@ export default function DedicatedArtifactPage() {
                           {/* INLINE EDIT MODE OR READ MODE */}
                           {editingObligationId === obl.id ? (
                             /* IN-PAGE INLINE EDIT FORM FOR OBLIGATION */
-                            <form onSubmit={handleSaveEditObligationInline} className="space-y-3 bg-slate-900/90 p-4 rounded-xl border border-indigo-500/40 text-xs">
+                            <form onSubmit={handleSaveEditObligationInline} className="space-y-3 bg-ebay-bg-secondary p-4 rounded-2xl border border-ebay-border text-xs">
                               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                                 <div>
-                                  <label className="block text-slate-400 font-medium mb-1">Article Reference</label>
+                                  <label className="block text-ebay-fg-secondary font-medium mb-1">Article Reference</label>
                                   <input
                                     type="text"
                                     required
                                     value={obligationEditForm.article || ''}
                                     onChange={(e) => setObligationEditForm({ ...obligationEditForm, article: e.target.value })}
-                                    className="w-full bg-slate-950 text-slate-100 px-3 py-2 rounded-xl border border-slate-700 focus:outline-none focus:border-indigo-500"
+                                    className="w-full bg-ebay-bg-primary text-ebay-fg-primary px-3 py-2 rounded-xl border border-ebay-border focus:outline-none focus:ring-2 focus:ring-ebay-blue"
                                   />
                                 </div>
                                 <div>
-                                  <label className="block text-slate-400 font-medium mb-1">Obligation Type</label>
+                                  <label className="block text-ebay-fg-secondary font-medium mb-1">Obligation Type</label>
                                   <select
                                     value={obligationEditForm.type || 'Display'}
                                     onChange={(e) => setObligationEditForm({ ...obligationEditForm, type: e.target.value as any })}
-                                    className="w-full bg-slate-950 text-slate-100 px-3 py-2 rounded-xl border border-slate-700 focus:outline-none focus:border-indigo-500"
+                                    className="w-full bg-ebay-bg-primary text-ebay-fg-primary px-3 py-2 rounded-xl border border-ebay-border focus:outline-none focus:ring-2 focus:ring-ebay-blue"
                                   >
                                     <option value="Display">Display</option>
                                     <option value="Disclosure">Disclosure</option>
@@ -1080,55 +1150,55 @@ export default function DedicatedArtifactPage() {
                               </div>
 
                               <div>
-                                <label className="block text-slate-400 font-medium mb-1">Statutory Text</label>
+                                <label className="block text-ebay-fg-secondary font-medium mb-1">Statutory Text</label>
                                 <textarea
                                   required
                                   rows={3}
                                   value={obligationEditForm.text || ''}
                                   onChange={(e) => setObligationEditForm({ ...obligationEditForm, text: e.target.value })}
-                                  className="w-full bg-slate-950 text-slate-100 p-3 rounded-xl border border-slate-700 focus:outline-none focus:border-indigo-500 font-serif leading-relaxed"
+                                  className="w-full bg-ebay-bg-primary text-ebay-fg-primary p-3 rounded-xl border border-ebay-border focus:outline-none focus:ring-2 focus:ring-ebay-blue leading-relaxed"
                                 />
                               </div>
 
                               <div>
-                                <label className="block text-slate-400 font-medium mb-1">Affected UI Surfaces (comma separated)</label>
+                                <label className="block text-ebay-fg-secondary font-medium mb-1">Affected UI Surfaces (comma separated)</label>
                                 <input
                                   type="text"
                                   value={obligationSurfaceInput}
                                   onChange={(e) => setObligationSurfaceInput(e.target.value)}
-                                  className="w-full bg-slate-950 text-slate-100 px-3 py-2 rounded-xl border border-slate-700 focus:outline-none focus:border-indigo-500"
+                                  className="w-full bg-ebay-bg-primary text-ebay-fg-primary px-3 py-2 rounded-xl border border-ebay-border focus:outline-none focus:ring-2 focus:ring-ebay-blue"
                                 />
                               </div>
 
-                              <div className="flex justify-end gap-2 pt-2 border-t border-slate-800">
+                              <div className="flex justify-end gap-2 pt-2 border-t border-ebay-border">
                                 <button
                                   type="button"
                                   onClick={() => setEditingObligationId(null)}
-                                  className="px-4 py-2 rounded-xl text-slate-400 hover:text-white"
+                                  className="px-4 py-2 rounded-full text-ebay-fg-secondary hover:text-ebay-fg-primary"
                                 >
                                   Cancel
                                 </button>
                                 <button
                                   type="submit"
-                                  className="px-4 py-2 rounded-xl bg-indigo-600 text-white font-semibold hover:bg-indigo-500 flex items-center gap-1.5"
+                                  className="px-4 py-2 rounded-full bg-ebay-blue text-white font-bold hover:bg-blue-700 shadow-sm flex items-center gap-1.5"
                                 >
-                                  <Save className="w-3.5 h-3.5" /> Save Obligation
+                                  <Save className="w-3.5 h-3.5" /> Save
                                 </button>
                               </div>
                             </form>
                           ) : (
                             /* READ MODE */
                             <>
-                              <p className="text-xs text-slate-100 font-serif leading-relaxed bg-slate-900/80 p-3.5 rounded-xl border border-slate-800">
+                              <p className="text-xs text-ebay-fg-primary leading-relaxed bg-ebay-bg-secondary p-4 rounded-2xl border border-ebay-border">
                                 {obl.text}
                               </p>
 
                               <div className="flex flex-wrap items-center justify-between gap-2 pt-1 text-xs">
                                 <div className="flex items-center gap-2">
-                                  <span className="text-[10px] font-bold text-slate-500 uppercase">Affected Surfaces:</span>
+                                  <span className="text-[10px] font-bold text-ebay-fg-secondary uppercase">Affected Surfaces:</span>
                                   <div className="flex flex-wrap gap-1">
                                     {obl.affected_surface.map((surf) => (
-                                      <span key={surf} className="px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-300 border border-slate-700">
+                                      <span key={surf} className="px-2.5 py-0.5 rounded-full text-[10px] bg-ebay-blue/10 text-ebay-blue border border-ebay-blue/20 font-semibold">
                                         {surf}
                                       </span>
                                     ))}
@@ -1136,7 +1206,7 @@ export default function DedicatedArtifactPage() {
                                 </div>
 
                                 {obl.notes && (
-                                  <div className="text-[11px] text-slate-400 italic">
+                                  <div className="text-[11px] text-ebay-fg-secondary italic">
                                     Notes: {obl.notes}
                                   </div>
                                 )}
@@ -1145,13 +1215,13 @@ export default function DedicatedArtifactPage() {
                           )}
 
                           {/* COLLAPSIBLE OBLIGATION TRACEABILITY MODULE & IN-PAGE INSPECTOR */}
-                          <div className="pt-2 border-t border-slate-800/80">
+                          <div className="pt-2 border-t border-ebay-border">
                             <button
                               onClick={() => toggleObligationTraceability(obl.id)}
-                              className="w-full flex items-center justify-between text-xs font-semibold text-purple-300 hover:text-purple-200 transition-colors py-1"
+                              className="w-full flex items-center justify-between text-xs font-semibold text-ebay-blue hover:text-ebay-blue/80 transition-colors py-1"
                             >
                               <div className="flex items-center gap-2">
-                                <GitBranch className="w-3.5 h-3.5 text-purple-400" />
+                                <GitBranch className="w-3.5 h-3.5 text-ebay-blue" />
                                 <span>Traceability Chain ({linkedTraceNodes.length} Linked Artifact Elements)</span>
                               </div>
                               {isTraceExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
@@ -1166,47 +1236,47 @@ export default function DedicatedArtifactPage() {
                                       onClick={() => setInspectedTraceNode(inspectedTraceNode?.id === node.id ? null : node)}
                                       className={`p-2.5 rounded-xl border text-xs font-mono cursor-pointer transition-all ${
                                         inspectedTraceNode?.id === node.id
-                                          ? 'bg-purple-950/80 border-purple-400 text-white ring-1 ring-purple-500/50'
-                                          : 'bg-slate-900 hover:bg-slate-800 border-slate-800 text-slate-300'
+                                          ? 'bg-ebay-blue/10 border-ebay-blue text-ebay-blue font-bold shadow-xs'
+                                          : 'bg-ebay-bg-secondary hover:bg-ebay-bg-tertiary border-ebay-border text-ebay-fg-primary'
                                       }`}
                                     >
                                       <div className="flex items-center justify-between">
-                                        <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-indigo-950 text-indigo-300 border border-indigo-500/30">
+                                        <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-ebay-blue/10 text-ebay-blue border border-ebay-blue/30">
                                           {node.tier}
                                         </span>
-                                        <span className="text-[10px] text-emerald-400 font-semibold">{node.status}</span>
+                                        <span className="text-[10px] text-ebay-green font-semibold">{node.status}</span>
                                       </div>
                                       <div className="font-bold text-[11px] truncate mt-1">{node.title}</div>
-                                      <div className="text-[10px] text-cyan-400 font-bold mt-0.5">{node.complianceScore}% Score</div>
+                                      <div className="text-[10px] text-ebay-blue font-bold mt-0.5">{node.complianceScore}% Score</div>
                                     </div>
                                   ))}
                                 </div>
 
                                 {/* IN-PAGE QUICK INSPECTOR DRAWER */}
                                 {inspectedTraceNode && (
-                                  <div className="p-4 rounded-xl bg-slate-900/90 border border-purple-500/50 text-xs space-y-2 animate-fadeIn">
-                                    <div className="flex items-center justify-between border-b border-slate-800 pb-2">
+                                  <div className="p-4 rounded-2xl bg-ebay-bg-secondary border border-ebay-border text-xs space-y-2 animate-fadeIn">
+                                    <div className="flex items-center justify-between border-b border-ebay-border pb-2">
                                       <div className="flex items-center gap-2">
-                                        <Info className="w-4 h-4 text-purple-400" />
-                                        <span className="font-bold text-slate-100">{inspectedTraceNode.title}</span>
-                                        <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-purple-950 text-purple-300 border border-purple-500/30">
+                                        <Info className="w-4 h-4 text-ebay-blue" />
+                                        <span className="font-bold text-ebay-fg-primary">{inspectedTraceNode.title}</span>
+                                        <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-ebay-blue/10 text-ebay-blue border border-ebay-blue/30">
                                           {inspectedTraceNode.tier} • {inspectedTraceNode.version}
                                         </span>
                                       </div>
-                                      <button onClick={() => setInspectedTraceNode(null)} className="text-slate-400 hover:text-white">
+                                      <button onClick={() => setInspectedTraceNode(null)} className="text-ebay-fg-secondary hover:text-ebay-fg-primary">
                                         <X className="w-3.5 h-3.5" />
                                       </button>
                                     </div>
 
-                                    <p className="text-slate-300 bg-slate-950/60 p-2.5 rounded-lg border border-slate-800 font-mono text-[11px]">
+                                    <p className="text-ebay-fg-primary bg-ebay-bg-primary p-3 rounded-xl border border-ebay-border text-xs leading-relaxed">
                                       {inspectedTraceNode.summary}
                                     </p>
 
                                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 font-mono text-[10px] pt-1">
-                                      <div>Owner: <span className="text-indigo-300">{inspectedTraceNode.owner}</span></div>
-                                      <div>Status: <span className="text-emerald-400">{inspectedTraceNode.status}</span></div>
-                                      <div>Score: <span className="text-cyan-400">{inspectedTraceNode.complianceScore}%</span></div>
-                                      <div>Updated: <span className="text-slate-400">{inspectedTraceNode.lastUpdated}</span></div>
+                                      <div>Owner: <span className="text-ebay-blue font-semibold">{inspectedTraceNode.owner}</span></div>
+                                      <div>Status: <span className="text-ebay-green font-semibold">{inspectedTraceNode.status}</span></div>
+                                      <div>Score: <span className="text-ebay-blue font-semibold">{inspectedTraceNode.complianceScore}%</span></div>
+                                      <div>Updated: <span className="text-ebay-fg-secondary">{inspectedTraceNode.lastUpdated}</span></div>
                                     </div>
                                   </div>
                                 )}
@@ -1272,8 +1342,7 @@ export default function DedicatedArtifactPage() {
                       onClick={() => setShowAddQuestionInline(!showAddQuestionInline)}
                       className="px-4 py-2 rounded-full text-xs font-bold bg-ebay-amber text-white hover:bg-amber-600 transition-colors flex items-center gap-1.5 self-end md:self-auto shadow-sm"
                     >
-                      <Plus className="w-3.5 h-3.5" />
-                      <span>{showAddQuestionInline ? 'Close Form' : '+ Raise Open Question'}</span>
+                      <span>{showAddQuestionInline ? 'Cancel' : 'Ask Question'}</span>
                     </button>
                   )}
                 </div>
@@ -1282,7 +1351,7 @@ export default function DedicatedArtifactPage() {
                 {showAddQuestionInline && (
                   <form onSubmit={handleAddQuestionInline} className="evo-card p-5 space-y-3 bg-ebay-bg-secondary text-xs animate-fadeIn shadow-sm">
                     <h4 className="font-bold text-ebay-fg-primary text-sm flex items-center gap-2 border-b border-ebay-border pb-2">
-                      <HelpCircle className="w-4 h-4 text-ebay-amber" /> Raise New Open Legal Question
+                      <HelpCircle className="w-4 h-4 text-ebay-amber" /> Raise Open Question
                     </h4>
                     <div>
                       <label className="block text-ebay-fg-secondary font-medium mb-1">Question Description</label>
@@ -1317,7 +1386,7 @@ export default function DedicatedArtifactPage() {
                           <option value="">(Root LRD Question)</option>
                           {lrdDoc.sections.obligations.map((obl) => (
                             <option key={obl.id} value={obl.id}>
-                              {obl.id} ({obl.article})
+                              {obl.article}
                             </option>
                           ))}
                         </select>
@@ -1336,7 +1405,7 @@ export default function DedicatedArtifactPage() {
                         type="submit"
                         className="px-4 py-2 rounded-full bg-ebay-amber text-white font-bold hover:bg-amber-600 shadow-sm"
                       >
-                        Submit Question Entry
+                        Ask Question
                       </button>
                     </div>
                   </form>
@@ -1367,10 +1436,9 @@ export default function DedicatedArtifactPage() {
                             >
                               {q.status}
                             </span>
-                            <span className="text-[10px] font-mono text-ebay-fg-secondary">{q.id}</span>
                             {q.linked_obligation_id && (
                               <span className="px-2 py-0.5 rounded-full text-[10px] font-mono bg-ebay-blue/10 text-ebay-blue border border-ebay-blue/30 font-bold">
-                                Linked: {q.linked_obligation_id}
+                                Linked Obligation
                               </span>
                             )}
                           </div>
@@ -1380,17 +1448,13 @@ export default function DedicatedArtifactPage() {
                               Raised: <strong>{q.date_raised}</strong> by <span className="text-ebay-blue font-semibold">{q.asked_by.name}</span> ({q.asked_by.role || 'Member'})
                             </div>
 
-                            {canWriteLRD && (
+                            {canWriteLRD && editingQuestionId !== q.id && (
                               <button
                                 onClick={() => handleStartEditQuestion(q)}
-                                className={`px-3 py-1 rounded-full text-xs font-semibold border transition-colors flex items-center gap-1 ${
-                                  editingQuestionId === q.id
-                                    ? 'bg-ebay-amber-bg text-ebay-amber border-amber-500/40'
-                                    : 'bg-ebay-bg-secondary hover:bg-ebay-bg-tertiary text-ebay-fg-primary border-ebay-border'
-                                }`}
+                                className="px-3 py-1 rounded-full text-xs font-semibold bg-ebay-bg-secondary hover:bg-ebay-bg-tertiary text-ebay-fg-primary border border-ebay-border transition-colors flex items-center gap-1"
                               >
                                 <Edit3 className="w-3 h-3" />
-                                <span>{editingQuestionId === q.id ? 'Cancel' : 'Resolve / Edit In Place'}</span>
+                                <span>Resolve</span>
                               </button>
                             )}
                           </div>
@@ -1446,7 +1510,7 @@ export default function DedicatedArtifactPage() {
                                 type="submit"
                                 className="px-4 py-2 rounded-full bg-ebay-amber text-white font-bold hover:bg-amber-600 flex items-center gap-1.5 shadow-sm"
                               >
-                                <Save className="w-3.5 h-3.5" /> Save Question Resolution
+                                <Save className="w-3.5 h-3.5" /> Save Resolution
                               </button>
                             </div>
                           </form>
@@ -1553,19 +1617,7 @@ export default function DedicatedArtifactPage() {
               </div>
             )}
 
-            {/* TAB 6: RAW SCHEMA JSON */}
-            {activeTab === 'schema' && (
-              <div className="evo-card p-6 space-y-3 shadow-sm">
-                <h3 className="font-bold text-ebay-fg-primary text-sm flex items-center gap-2 border-b border-ebay-border pb-3">
-                  <Tag className="w-4 h-4 text-ebay-blue" /> Conforming §4.1 LRD Schema Object
-                </h3>
-                <pre className="bg-ebay-bg-secondary p-4 rounded-2xl border border-ebay-border text-xs font-mono text-ebay-blue overflow-x-auto max-h-[500px]">
-                  {JSON.stringify(lrdDoc, null, 2)}
-                </pre>
-              </div>
-            )}
-
-            {/* TAB 7: ACTIVITY & AUDIT LOG */}
+            {/* TAB 6: ACTIVITY LOG */}
             {activeTab === 'audit' && (
               <div className="space-y-6">
                 <div className="evo-card p-6 space-y-4 shadow-sm">
@@ -1604,7 +1656,6 @@ export default function DedicatedArtifactPage() {
                                 {log.action}
                               </span>
                               <span className="font-mono text-ebay-blue text-[11px] font-bold">{log.targetComponent}</span>
-                              <span className="text-[10px] font-mono text-ebay-fg-secondary">{log.id}</span>
                             </div>
 
                             <div className="flex items-center gap-2 text-[10px] font-mono text-ebay-fg-secondary">
@@ -1641,128 +1692,6 @@ export default function DedicatedArtifactPage() {
                 </div>
               </div>
             )}
-          </div>
-
-          {/* RIGHT-HAND SIDEBAR COMPONENT NAVIGATION MENU */}
-          <div className="lg:col-span-1 space-y-4 sticky top-24">
-            <div className="evo-card p-4 space-y-3 shadow-sm">
-              <h3 className="text-xs uppercase font-extrabold tracking-wider text-ebay-fg-secondary border-b border-ebay-border pb-2 flex items-center justify-between">
-                <span>Component Menu</span>
-                <span className="text-[10px] text-ebay-blue font-mono font-bold">§4.1 LRD</span>
-              </h3>
-
-              <nav className="space-y-1 text-xs">
-                <button
-                  onClick={() => setActiveTab('overview')}
-                  className={`w-full p-2.5 rounded-xl font-semibold flex items-center justify-between transition-all ${
-                    activeTab === 'overview'
-                      ? 'bg-ebay-blue text-white shadow-sm font-bold'
-                      : 'text-ebay-fg-secondary hover:text-ebay-fg-primary hover:bg-ebay-bg-secondary'
-                  }`}
-                >
-                  <div className="flex items-center gap-2">
-                    <FileText className="w-4 h-4" />
-                    <span>Overview Context</span>
-                  </div>
-                </button>
-
-                <button
-                  onClick={() => setActiveTab('obligations')}
-                  className={`w-full p-2.5 rounded-xl font-semibold flex items-center justify-between transition-all ${
-                    activeTab === 'obligations'
-                      ? 'bg-ebay-blue text-white shadow-sm font-bold'
-                      : 'text-ebay-fg-secondary hover:text-ebay-fg-primary hover:bg-ebay-bg-secondary'
-                  }`}
-                >
-                  <div className="flex items-center gap-2">
-                    <ShieldCheck className="w-4 h-4" />
-                    <span>Obligations</span>
-                  </div>
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-ebay-bg-secondary text-ebay-blue border border-ebay-border">
-                    {lrdDoc.sections.obligations.length}
-                  </span>
-                </button>
-
-                <button
-                  onClick={() => setActiveTab('questions')}
-                  className={`w-full p-2.5 rounded-xl font-semibold flex items-center justify-between transition-all ${
-                    activeTab === 'questions'
-                      ? 'bg-ebay-blue text-white shadow-sm font-bold'
-                      : 'text-ebay-fg-secondary hover:text-ebay-fg-primary hover:bg-ebay-bg-secondary'
-                  }`}
-                >
-                  <div className="flex items-center gap-2">
-                    <HelpCircle className="w-4 h-4" />
-                    <span>Open Questions</span>
-                  </div>
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-ebay-amber-bg text-ebay-amber border border-amber-500/20">
-                    {lrdDoc.sections.open_legal_questions.length}
-                  </span>
-                </button>
-
-                <button
-                  onClick={() => setActiveTab('approvals')}
-                  className={`w-full p-2.5 rounded-xl font-semibold flex items-center justify-between transition-all ${
-                    activeTab === 'approvals'
-                      ? 'bg-ebay-blue text-white shadow-sm font-bold'
-                      : 'text-ebay-fg-secondary hover:text-ebay-fg-primary hover:bg-ebay-bg-secondary'
-                  }`}
-                >
-                  <div className="flex items-center gap-2">
-                    <UserCheck className="w-4 h-4" />
-                    <span>Approvals</span>
-                  </div>
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-ebay-green-bg text-ebay-green border border-green-500/20">
-                    {lrdDoc.approvals.length}
-                  </span>
-                </button>
-
-                <button
-                  onClick={() => setActiveTab('lineage')}
-                  className={`w-full p-2.5 rounded-xl font-semibold flex items-center justify-between transition-all ${
-                    activeTab === 'lineage'
-                      ? 'bg-ebay-blue text-white shadow-sm font-bold'
-                      : 'text-ebay-fg-secondary hover:text-ebay-fg-primary hover:bg-ebay-bg-secondary'
-                  }`}
-                >
-                  <div className="flex items-center gap-2">
-                    <Layers className="w-4 h-4" />
-                    <span>Lineage Graph</span>
-                  </div>
-                </button>
-
-                <button
-                  onClick={() => setActiveTab('schema')}
-                  className={`w-full p-2.5 rounded-xl font-semibold flex items-center justify-between transition-all ${
-                    activeTab === 'schema'
-                      ? 'bg-ebay-blue text-white shadow-sm font-bold'
-                      : 'text-ebay-fg-secondary hover:text-ebay-fg-primary hover:bg-ebay-bg-secondary'
-                  }`}
-                >
-                  <div className="flex items-center gap-2">
-                    <Tag className="w-4 h-4" />
-                    <span>Raw Schema JSON</span>
-                  </div>
-                </button>
-
-                <button
-                  onClick={() => setActiveTab('audit')}
-                  className={`w-full p-2.5 rounded-xl font-semibold flex items-center justify-between transition-all ${
-                    activeTab === 'audit'
-                      ? 'bg-ebay-amber text-white shadow-sm font-bold'
-                      : 'text-ebay-fg-secondary hover:text-ebay-fg-primary hover:bg-ebay-bg-secondary'
-                  }`}
-                >
-                  <div className="flex items-center gap-2">
-                    <History className="w-4 h-4" />
-                    <span>Activity & Audit Log</span>
-                  </div>
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-ebay-amber-bg text-ebay-amber border border-amber-500/20">
-                    {lrdDoc.audit_log?.length || 0}
-                  </span>
-                </button>
-              </nav>
-            </div>
           </div>
         </div>
       </main>
